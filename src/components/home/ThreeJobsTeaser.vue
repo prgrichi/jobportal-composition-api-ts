@@ -45,7 +45,6 @@
 </template>
 
 <script>
-// import jobsMixin from '@/mixins/jobsMixin';
 import { useJobStore } from '@/stores/jobs/jobs';
 import JobSingle from '@/components/jobs/JobSingle.vue';
 import JobSkeleton from "@/components/jobs/JobSkeleton.vue";

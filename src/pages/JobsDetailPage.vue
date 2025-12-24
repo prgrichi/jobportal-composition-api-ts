@@ -1,7 +1,7 @@
 <template>
 
-  <div v-if="isLoading">Lädt... </div>
-  <div v-else-if="error">{{ error }}</div>
+  <div v-if="jobStore.isLoading">Lädt... </div>
+  <div v-else-if="jobStore.error">{{ job.error }}</div>
   <div v-else-if="job">
 
     <div class="min-h-screen bg-gray-50">
@@ -9,7 +9,7 @@
         <div class="mx-auto max-w-app px-4 py-5">
           <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div class="flex items-center gap-3">
-              <RouterLink to="/jobs"
+              <RouterLink :to="backRoute"
                 class="inline-flex items-center gap-2 rounded-xl px-3 md:px-0 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">
                 <span aria-hidden="true">←</span>
                 Jobs
@@ -42,7 +42,7 @@
             </h1>
 
             <p class="mt-2 text-sm text-gray-600">
-              {{ job.company }} · {{ job.location }} ·
+              {{ job.company }} · {{ job.location }}
               <!-- {{ remoteLabel }} -->
             </p>
 
@@ -175,11 +175,10 @@
 </template>
 
 <script>
-import jobsMixin from '@/mixins/jobsMixin';
+import { useJobStore } from '@/stores/jobs/jobs';
 
 export default {
   name: "JobDetailPage",
-  mixins: [jobsMixin],
   props: {
     id: {
       type: String,
@@ -187,8 +186,11 @@ export default {
     }
   },
   computed: {
+    jobStore() {
+      return useJobStore();
+    },
     job() {
-      return this.singleJob;
+      return this.jobStore.singleJob;
     },
     createdAtDE() {
       const date = this.job.createdAt ? this.job.createdAt.toDate() : new Date();
@@ -197,12 +199,22 @@ export default {
     remoteLabel() {
       return this.job.remote ? "Remote möglich" : "Vor Ort";
     },
+    backRoute() {
+      if (this.$route.meta.previousRoute === '/') {
+        return { name: 'home' };
+      }
+      if (this.$route.meta.previousRoute === '/jobs') {
+        return { name: 'jobs' };
+      }
+
+      return { name: 'home' };
+    }
   },
 
   async created() {
     const jobId = this.id;
-    await this.fetchJobById(jobId);
-  }
+    await this.jobStore.fetchJobById(jobId);
+  },
 
 };
 </script>

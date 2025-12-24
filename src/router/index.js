@@ -80,8 +80,7 @@ router.beforeEach(async (to, from, next) => {
     });
   }
 
-  console.log(from);
-
+  to.meta.previousRoute = from.fullPath;
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     next({
       name: 'login',

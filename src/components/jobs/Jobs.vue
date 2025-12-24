@@ -1,9 +1,7 @@
 <template>
   <div>
-
     <JobFilter />
     <JobList />
-
   </div>
 </template>
 

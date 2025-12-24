@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia';
-import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
+import { collection, query, orderBy, where, limit, getDocs } from 'firebase/firestore';
 import { db } from '@/config/firebase';
 
 export const useJobStore = defineStore('jobs', {
   state: () => ({
     jobs: [],
+    singleJob: null,
 
     isLoading: false,
     error: null,
@@ -92,17 +93,6 @@ export const useJobStore = defineStore('jobs', {
       } finally {
         this.isLoading = false;
       }
-    },
-
-    activeFiltersCount(state) {
-      let count = 0;
-      if (state.searchText) count++;
-      return count;
-    },
-
-    // Filter setzen
-    setSearchText(text) {
-      this.searchText = text;
     },
 
     // Alle Filter zurücksetzen

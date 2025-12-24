@@ -19,17 +19,8 @@
       </template>
 
       <!-- Keine Jobs gefunden -->
-      <div v-if="jobStore.filteredJobs.length === 0" class="col-span-full no-results">
+      <div v-if="jobStore.filteredJobs.length === 0" class="no-results">
         😕 Keine Jobs gefunden
-      </div>
-
-      <div>
-        <p v-if="jobStore.activeFiltersCount > 0" class="filter-info">
-          {{ jobStore.filteredJobs.length }} von {{ jobStore.jobs.length }} Jobs
-          <button @click="jobStore.resetFilters()" class="reset-btn">
-            Filter zurücksetzen
-          </button>
-        </p>
       </div>
 
     </div>
