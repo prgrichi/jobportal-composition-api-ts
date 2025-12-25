@@ -27,7 +27,7 @@
           <RouterLink :to="{ name: 'jobs' }" class="text-neutral-600 hover:text-primary-600 transition">Jobs
           </RouterLink>
 
-          <a href="https://github.com/prgrichi" rel="noopener noreferrer" target="_blank"
+          <a href="https://github.com/prgrichi/jobportal" rel="noopener noreferrer" target="_blank"
             class="text-neutral-600 hover:text-primary-600 transition">
             GitHub
           </a>
