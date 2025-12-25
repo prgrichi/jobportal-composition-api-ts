@@ -33,6 +33,11 @@
       <div v-if="jobStore.filteredJobs.length === 0 && !jobStore.isLoading" class="no-results">
         😕 Keine Jobs gefunden
       </div>
+
+      <template v-if="jobStore.isLoadingMore">
+        <JobSkeleton v-for="n in 3" :key="`sk-${n}`" />
+      </template>
+      
     </div>
 
     <div v-if="!jobStore.isLoading && jobStore.hasMore" class="mt-8 text-center">
