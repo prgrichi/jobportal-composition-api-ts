@@ -91,7 +91,11 @@
     "headline": "Verfügbare Jobs",
     "filter": {
       "headline": "Filter",
-      "inputPlaceholder": "Job, Firma oder Stichwort..."
+      "inputPlaceholder": "Job, Firma oder Stichwort...",
+      "jobsFound": "Keine Jobs gefunden | 1 Job gefunden | {n} Jobs gefunden",
+      "btn": {
+        "reset": "Filter zurücksetzen"
+      }
     },
     "jobsNotFound": "Keine Jobs gefunden.",
     "ui": {

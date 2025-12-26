@@ -29,10 +29,6 @@
         <JobSingle v-for="job in jobStore.filteredJobs" :key="job.id" :job="job" />
       </template>
 
-      <!-- Keine Jobs gefunden -->
-      <div v-if="jobStore.filteredJobs.length === 0 && !jobStore.isLoading" class="no-results">
-        😕 {{ $t('jobs.jobsNotFound') }}
-      </div>
 
       <template v-if="jobStore.isLoadingMore">
         <JobSkeleton v-for="n in 3" :key="`sk-${n}`" />
@@ -101,7 +97,7 @@ export default {
   created() {
     this.jobStore.fetchJobs({
       orderBy: { field: 'createdAt', direction: 'desc' },
-      limit: 3
+      limit: 6
     })
   },
 }

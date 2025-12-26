@@ -10,15 +10,24 @@ export const useJobStore = defineStore('jobs', {
     isLoading: false,
     isLoadingMore: false,
     error: null,
-    // Filter States - hier kannst du sukzessive erweitern
+
     searchText: '',
+    selectedLocation: '',
 
     lastVisible: null,
     hasMore: true,
-    pageSize: 3,
+    pageSize: 6,
   }),
 
   getters: {
+    availableLocations(state) {
+      const locations = state.jobs
+        .map(job => job.location)
+        .filter(location => location);
+
+      // Set entfernt automatisch Duplikate
+      return [...new Set(locations)].sort();
+    },
     filteredJobs(state) {
       let result = state.jobs;
 
@@ -31,6 +40,11 @@ export const useJobStore = defineStore('jobs', {
           return title.includes(search) ||
             company.includes(search);
         })
+      }
+
+      // Location-Filter
+      if (state.selectedLocation) {
+        result = result.filter(job => job.location === state.selectedLocation);
       }
 
       return result;
@@ -169,9 +183,9 @@ export const useJobStore = defineStore('jobs', {
       }
     },
 
-    // Alle Filter zurücksetzen
     resetFilters() {
       this.searchText = '';
+      this.selectedLocation = '';
     }
   }
 

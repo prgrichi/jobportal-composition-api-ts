@@ -69,9 +69,6 @@ export default {
           minute: '2-digit'
         });
     },
-  },
-  methods: {
-
   }
 }
 </script>
