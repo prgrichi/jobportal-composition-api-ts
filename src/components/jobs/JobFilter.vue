@@ -41,14 +41,13 @@
           </select>
         </div>
 
-        <button v-if="jobStore.searchText || jobStore.selectedLocation || jobStore.selectedLevel" @click="resetAll"
-          class="cursor-pointer px-4 py-2 text-sm text-gray-600 hover:text-gray-900 
-                 border border-gray-300 rounded-xl hover:bg-gray-50">
+        <button v-if="hasActiveFilters" @click="resetAll" class="cursor-pointer px-4 py-2 text-sm text-gray-600 hover:text-gray-900 
+                   border border-gray-300 rounded-xl hover:bg-gray-50">
           {{ $t('jobs.filter.btn.reset') }}
         </button>
       </div>
 
-      <div class="mt-4" v-if="jobStore.searchText || jobStore.selectedLocation || jobStore.selectedLevel">
+      <div class="mt-4" v-if="hasActiveFilters">
         {{ $t('jobs.filter.jobsFound', jobsFoundCount) }}
       </div>
 
@@ -89,6 +88,11 @@ export default {
     jobsFoundCount() {
       return this.jobStore.filteredJobs.length;
     },
+    hasActiveFilters() {
+      return this.jobStore.searchText ||
+        this.jobStore.selectedLocation ||
+        this.jobStore.selectedLevel;
+    }
   },
   methods: {
     resetAll() {

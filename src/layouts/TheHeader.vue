@@ -4,6 +4,10 @@
     <div class="border-b border-neutral-100 bg-neutral-100">
       <div class="mx-auto max-w-app px-4">
         <div class="flex h-10 items-center justify-end gap-4 text-xs">
+          <p class="text-neutral-600 hover:text-neutral-900 transition after:content-['/'] after:ml-4"
+            v-if="authStore.isAuthenticated">{{ $t('nav.userGreeting') }}, {{
+              authStore.userName }}</p>
+
           <!-- Language Switcher -->
           <div class="flex items-center gap-2" aria-label="Sprachwahl">
             <button :class="deClasses" @click="changeLang('de')" class="cursor-pointer text-neutral-600">DE</button>
@@ -25,9 +29,6 @@
 
         <!-- Navigation -->
         <nav v-if="authReady" aria-label="Hauptnavigation" class="flex items-center gap-6 text-sm">
-          <p class="text-neutral-600 hover:text-neutral-900 transition after:content-['/'] after:ml-6"
-            v-if="authStore.isAuthenticated">{{ $t('nav.userGreeting') }}, {{
-              authStore.userName }}</p>
 
           <RouterLink :to="{ name: 'jobs' }" class="text-neutral-600 hover:text-neutral-900 transition">
             {{ $t('nav.link.job') }}
@@ -84,7 +85,7 @@ export default {
     },
     deClasses() {
       return this.currentLocale === 'de'
-        ? 'font-bold text-primary-600'  
+        ? 'font-bold text-primary-600'
         : 'text-neutral-600 hover:text-neutral-900';
     },
     enClasses() {
@@ -97,7 +98,7 @@ export default {
     changeLang(lang) {
       this.$i18n.locale = lang;
     },
-    
+
     async handleLogout() {
       const toast = useToastStore();
 
