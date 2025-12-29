@@ -100,7 +100,10 @@
       "loading": "Loading..."
     },
     "allLoaded": "All {count} jobs loaded",
-    "details": "Details"
+    "details": "Details",
+    "favorites": {
+      "count": "Saved Jobs: {count}"
+    }
   },
   "hero": {
     "title": "A Modern Job Board as a Portfolio Project",

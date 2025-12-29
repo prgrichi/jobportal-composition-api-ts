@@ -103,7 +103,10 @@
       "loading": "Laden..."
     },
     "allLoaded": "Alle {count} Jobs geladen",
-    "details": "Details"
+    "details": "Details",
+    "favorites": {
+      "count": "Gespeicherte Jobs: {count}"
+    }
   },
   "hero": {
     "title": "Eine moderne Jobbörse als Portfolio-Projekt",
