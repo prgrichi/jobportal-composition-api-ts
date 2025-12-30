@@ -25,10 +25,11 @@
     "userGreeting": "Hello",
     "link": {
       "homepage": "Job Portal",
-      "job": "Jobs",
+      "job": "Find job",
       "login": "Login",
       "register": "Register",
-      "logout": "Logout"
+      "logout": "Logout",
+      "favoriteJobs": "My Jobs"
     }
   },
   "footer": {
