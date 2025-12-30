@@ -43,7 +43,9 @@
             </span>
           </RouterLink>
 
-          <RouterLink :to="{ name: 'jobs' }" class="text-neutral-600 hover:text-neutral-900 transition">
+          <RouterLink :to="{ name: 'jobs' }"
+            class="inline-flex items-center text-neutral-600 hover:text-neutral-900 transition">
+            <Icon name="LockClosed" v-if="!isAuthenticated" icon-class="me-[2px] h-4 w-4 text-neutral-600 " />
             {{ $t('nav.link.job') }}
           </RouterLink>
 

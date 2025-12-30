@@ -118,5 +118,67 @@
     "title": "Eine moderne Jobbörse als Portfolio-Projekt",
     "subtitle": "Jobportal Demo",
     "description": "Eine reduzierte Jobbörse als Übungs- und Portfolio-Projekt, entwickelt mit Fokus auf Klarheit statt Funktionsfülle."
+  },
+  "why": {
+    "label": "Warum dieses Portal?",
+    "title": "Reduziert auf das Wesentliche",
+    "description": "Dieses Jobportal ist bewusst schlank gehalten: Stellen schnell finden, filtern und speichern – ohne Werbung, Popups oder visuelles Rauschen. Der Fokus liegt auf Struktur, Nutzerführung und klaren Inhalten.",
+    "features": {
+      "relevantJobs": {
+        "title": "Relevante Stellen",
+        "description": "Ausgewählte Jobs aus internen Teams – keine Projektakquise oder Agenturangebote."
+      },
+      "remoteFlexible": {
+        "title": "Remote & flexibel",
+        "description": "Remote- und Hybrid-Optionen sind klar gekennzeichnet."
+      },
+      "noDistraction": {
+        "title": "Ohne Ablenkung",
+        "description": "Keine Werbung, kein Tracking, keine unnötigen Elemente."
+      }
+    }
+  },
+  "disclaimer": {
+    "text": "Dieses Jobportal ist ein",
+    "projectType": "Übungs- und Portfolio-Projekt",
+    "demonstrates": "Es demonstriert den Einsatz moderner Frontend-Technologien wie",
+    "tech": {
+      "vue": "Vue 3",
+      "pinia": "Pinia",
+      "firebase": "Firebase"
+    },
+    "and": "und",
+    "inRealisticApp": "in einer realistischen Anwendung."
+  },
+  "techStack": {
+    "label": "Tech Stack",
+    "title": "Technologien hinter dem Projekt",
+    "description": "Dieses Jobportal ist als praxisnahes Portfolio-Projekt konzipiert. Der Stack fokussiert Wartbarkeit, Struktur und moderne Frontend-Workflows.",
+    "items": {
+      "vue": {
+        "title": "Vue 3",
+        "description": "Komponentenbasierte Architektur für eine klare UI-Struktur."
+      },
+      "pinia": {
+        "title": "Pinia",
+        "description": "Zentrales State Management für Jobs, Nutzer und Favoriten."
+      },
+      "vueRouter": {
+        "title": "Vue Router",
+        "description": "Clientseitiges Routing mit Guards für geschützte Bereiche."
+      },
+      "firebase": {
+        "title": "Firebase",
+        "description": "Authentifizierung und Datenhaltung über Firestore."
+      },
+      "vite": {
+        "title": "Vite",
+        "description": "Schnelles Development-Setup mit moderner Build-Pipeline."
+      },
+      "tailwind": {
+        "title": "Tailwind CSS",
+        "description": "Utility-first Styling für ein konsistentes, responsives UI."
+      }
+    }
   }
 }

@@ -3,13 +3,14 @@
     <div class="max-w-app mx-auto px-4">
 
       <div class="mb-14 text-center">
-        <p class="text-sm uppercase tracking-wider text-primary-600">Tech Stack</p>
+        <p class="text-sm uppercase tracking-wider text-primary-600">
+          {{ $t('techStack. label') }}
+        </p>
         <h2 class="mt-2 text-3xl font-semibold text-gray-900">
-          Technologien hinter dem Projekt
+          {{ $t('techStack.title') }}
         </h2>
         <p class="mx-auto mt-4 max-w-2xl text-gray-600">
-          Dieses Jobportal ist als praxisnahes Portfolio-Projekt konzipiert.
-          Der Stack fokussiert Wartbarkeit, Struktur und moderne Frontend-Workflows.
+          {{ $t('techStack.description') }}
         </p>
       </div>
 
@@ -20,26 +21,26 @@
           <div class="divide-y divide-gray-200">
             <div class="flex items-start gap-6 p-6">
               <span class="flex h-8 w-8 items-center justify-center rounded-full
-         bg-primary-100 text-xs font-mono font-medium text-primary-500">
+                  bg-primary-100 text-xs font-mono font-medium text-primary-500">
                 01
               </span>
               <div>
-                <h3 class="text-lg font-medium">Vue 3</h3>
+                <h3 class="text-lg font-medium">{{ $t('techStack.items.vue. title') }}</h3>
                 <p class="mt-1 text-sm text-gray-600">
-                  Komponentenbasierte Architektur für eine klare UI-Struktur.
+                  {{ $t('techStack.items.vue.description') }}
                 </p>
               </div>
             </div>
 
             <div class="flex items-start gap-6 p-6">
               <span class="flex h-8 w-8 items-center justify-center rounded-full
-         bg-primary-100 text-xs font-mono font-medium text-primary-600">
+                  bg-primary-100 text-xs font-mono font-medium text-primary-600">
                 02
               </span>
               <div>
-                <h3 class="text-lg font-medium">Pinia</h3>
+                <h3 class="text-lg font-medium">{{ $t('techStack.items.pinia.title') }}</h3>
                 <p class="mt-1 text-sm text-gray-600">
-                  Zentrales State Management für Jobs, Nutzer und Favoriten.
+                  {{ $t('techStack.items.pinia.description') }}
                 </p>
               </div>
             </div>
@@ -50,9 +51,9 @@
                 03
               </span>
               <div>
-                <h3 class="text-lg font-medium">Vue Router</h3>
+                <h3 class="text-lg font-medium">{{ $t('techStack.items.vueRouter.title') }}</h3>
                 <p class="mt-1 text-sm text-gray-600">
-                  Clientseitiges Routing mit Guards für geschützte Bereiche.
+                  {{ $t('techStack.items. vueRouter.description') }}
                 </p>
               </div>
             </div>
@@ -66,9 +67,9 @@
                 04
               </span>
               <div>
-                <h3 class="text-lg font-medium">Firebase</h3>
+                <h3 class="text-lg font-medium">{{ $t('techStack.items.firebase.title') }}</h3>
                 <p class="mt-1 text-sm text-gray-600">
-                  Authentifizierung und Datenhaltung über Firestore.
+                  {{ $t('techStack. items.firebase.description') }}
                 </p>
               </div>
             </div>
@@ -79,9 +80,9 @@
                 05
               </span>
               <div>
-                <h3 class="text-lg font-medium">Vite</h3>
+                <h3 class="text-lg font-medium">{{ $t('techStack.items.vite.title') }}</h3>
                 <p class="mt-1 text-sm text-gray-600">
-                  Schnelles Development-Setup mit moderner Build-Pipeline.
+                  {{ $t('techStack.items.vite.description') }}
                 </p>
               </div>
             </div>
@@ -92,14 +93,13 @@
                 06
               </span>
               <div>
-                <h3 class="text-lg font-medium">Tailwind CSS</h3>
+                <h3 class="text-lg font-medium">{{ $t('techStack. items.tailwind.title') }}</h3>
                 <p class="mt-1 text-sm text-gray-600">
-                  Utility-first Styling für ein konsistentes, responsives UI.
+                  {{ $t('techStack. items.tailwind.description') }}
                 </p>
               </div>
             </div>
           </div>
-
         </div>
       </div>
 
@@ -113,4 +113,4 @@ export default {
 }
 </script>
 
-<style scoped></style> 
+<style scoped></style>

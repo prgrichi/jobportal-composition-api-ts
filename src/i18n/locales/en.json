@@ -115,5 +115,67 @@
     "title": "A Modern Job Board as a Portfolio Project",
     "subtitle": "Job Portal Demo",
     "description": "A minimal job board as a practice and portfolio project, developed with a focus on clarity over feature completeness."
+  },
+  "why": {
+    "label": "Why this portal?",
+    "title": "Reduced to the essentials",
+    "description": "This job portal is intentionally kept lean: find, filter, and save jobs quickly – without ads, popups, or visual noise.  The focus is on structure, user guidance, and clear content.",
+    "features": {
+      "relevantJobs": {
+        "title": "Relevant positions",
+        "description": "Selected jobs from internal teams – no project acquisition or agency offers."
+      },
+      "remoteFlexible": {
+        "title": "Remote & flexible",
+        "description": "Remote and hybrid options are clearly marked."
+      },
+      "noDistraction": {
+        "title": "No distractions",
+        "description": "No ads, no tracking, no unnecessary elements."
+      }
+    }
+  },
+  "disclaimer": {
+    "text": "This job portal is a",
+    "projectType": "practice and portfolio project",
+    "demonstrates": "It demonstrates the use of modern frontend technologies like",
+    "tech": {
+      "vue": "Vue 3",
+      "pinia": "Pinia",
+      "firebase": "Firebase"
+    },
+    "and": "and",
+    "inRealisticApp": "in a realistic application."
+  },
+  "techStack": {
+    "label": "Tech Stack",
+    "title": "Technologies behind the project",
+    "description": "This job portal is designed as a practical portfolio project.  The stack focuses on maintainability, structure, and modern frontend workflows.",
+    "items": {
+      "vue": {
+        "title": "Vue 3",
+        "description": "Component-based architecture for a clear UI structure."
+      },
+      "pinia": {
+        "title": "Pinia",
+        "description": "Centralized state management for jobs, users, and favorites."
+      },
+      "vueRouter": {
+        "title": "Vue Router",
+        "description": "Client-side routing with guards for protected areas."
+      },
+      "firebase": {
+        "title": "Firebase",
+        "description": "Authentication and data storage via Firestore."
+      },
+      "vite": {
+        "title": "Vite",
+        "description": "Fast development setup with modern build pipeline."
+      },
+      "tailwind": {
+        "title": "Tailwind CSS",
+        "description": "Utility-first styling for a consistent, responsive UI."
+      }
+    }
   }
 }
