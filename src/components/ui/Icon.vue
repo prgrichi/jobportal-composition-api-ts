@@ -3,14 +3,13 @@
 </template>
 
 <script>
-// Outline Icons
 import {
   UserIcon,
   AdjustmentsVerticalIcon,
   StarIcon,
+  LockClosedIcon
 } from '@heroicons/vue/24/outline';
 
-// Solid Icons
 import {
   StarIcon as StarIconSolid,
 } from '@heroicons/vue/24/solid';
@@ -20,6 +19,7 @@ const ICONS = {
     User: UserIcon,
     AdjustmentsVertical: AdjustmentsVerticalIcon,
     Star: StarIcon,
+    LockClosed: LockClosedIcon
   },
   solid: {
     Star: StarIconSolid,
