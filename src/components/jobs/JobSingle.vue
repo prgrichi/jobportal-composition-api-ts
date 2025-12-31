@@ -38,7 +38,7 @@
       </div>
 
       <div class="inline-flex group/star items-center gap-2 mt-4">
-        <button @click="toggleFavorite" class="inline-flex items-center gap-1.5 cursor-pointer">
+        <button @click="handleFavoriteClick" class="inline-flex items-center gap-1.5 cursor-pointer">
           <Icon name="Star" :type="starType" :icon-class="starIconClass" />
           <span
             class="text-sm text-primary-500 transition-all duration-150 group-hover/star:underline group-hover/star:underline-offset-4">
@@ -53,6 +53,8 @@
 
 <script>
 import { useFavoritesStore } from '@/stores/jobs/favorites';
+import { useAuthStore } from '@/stores/auth/auth';
+import { useModalStore } from '@/stores/ui/modal';
 
 export default {
   name: 'JobSingle',
@@ -70,6 +72,12 @@ export default {
   computed: {
     favoritesStore() {
       return useFavoritesStore();
+    },
+    authStore() {
+      return useAuthStore();
+    },
+    modalStore() {
+      return useModalStore();
     },
     timeToDate() {
       const date = this.job?.createdAt?.toDate() || null;
@@ -97,13 +105,23 @@ export default {
     }
   },
   methods: {
+    handleFavoriteClick() {
+      if (!this.authStore.isAuthenticated) {
+        this.openAuthRequiredModal();
+        return;
+      }
+      this.toggleFavorite();
+    },
     toggleFavorite() {
       this.favoritesStore.toggleFavorite(this.job);
       this.isAnimating = true;
       setTimeout(() => {
         this.isAnimating = false;
       }, 500)
-    }
+    },
+    openAuthRequiredModal() {
+      this.modalStore.showAuthRequired();
+    },
   }
 }
 </script>

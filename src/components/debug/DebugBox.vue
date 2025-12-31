@@ -15,6 +15,7 @@
 
 <script>
 export default {
+  name: 'DebugBox',
   data() {
     return {
       minimized: false

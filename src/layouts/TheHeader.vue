@@ -1,5 +1,5 @@
 <template>
-  <header class="sticky top-0 z-40 border-b border-neutral-200 bg-white/80 backdrop-blur-sm">
+  <header class="sticky top-0 z-10 border-b border-neutral-200 bg-white/80 backdrop-blur-sm">
 
     <div class="border-b border-neutral-100 bg-primary-500">
       <div class="mx-auto max-w-app px-4">
@@ -33,21 +33,39 @@
         <!-- Navigation -->
         <nav v-if="authReady" aria-label="Hauptnavigation" class="flex items-center gap-6 text-sm">
 
-          <RouterLink :to="{ name: 'favoriteJobs' }"
-            class="inline-flex items-center text-neutral-600 hover:text-neutral-900 transition">
-            <Icon name="LockClosed" v-if="!isAuthenticated" icon-class="me-[2px] h-4 w-4 text-neutral-600 " />
-            {{ $t('nav.link.favoriteJobs') }}
-            <span v-if="favoritesStore.favoriteCount > 0"
-              class="ms-[5px] inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-primary-500 text-[11px] font-semibold text-white">
-              {{ favoritesStore.favoriteCount }}
-            </span>
-          </RouterLink>
+          <template v-if="authStore.isAuthenticated">
+            <RouterLink :to="{ name: 'favoriteJobs' }"
+              class="inline-flex items-center text-neutral-600 hover:text-neutral-900 transition">
+              <Icon name="LockClosed" v-if="!isAuthenticated" icon-class="me-[2px] h-4 w-4 text-neutral-600 " />
+              {{ $t('nav.link.favoriteJobs') }}
+              <span v-if="favoritesStore.favoriteCount > 0"
+                class="ms-[5px] inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-primary-500 text-[11px] font-semibold text-white">
+                {{ favoritesStore.favoriteCount }}
+              </span>
+            </RouterLink>
+          </template>
+          <template v-else>
+            <button @click="modalStore.showAuthRequired"
+              class="cursor-pointer inline-flex items-center text-neutral-600 hover:text-neutral-900 transition">
+              <Icon name="LockClosed" icon-class="me-[2px] h-4 w-4 text-neutral-600" />
+              {{ $t('nav.link.favoriteJobs') }}
+            </button>
+          </template>
 
-          <RouterLink :to="{ name: 'jobs' }"
-            class="inline-flex items-center text-neutral-600 hover:text-neutral-900 transition">
-            <Icon name="LockClosed" v-if="!isAuthenticated" icon-class="me-[2px] h-4 w-4 text-neutral-600 " />
-            {{ $t('nav.link.job') }}
-          </RouterLink>
+          <template v-if="authStore.isAuthenticated">
+            <RouterLink :to="{ name: 'jobs' }" v-if="authStore.isAuthenticated"
+              class="inline-flex items-center text-neutral-600 hover:text-neutral-900 transition">
+              <Icon name="LockClosed" v-if="!isAuthenticated" icon-class="me-[2px] h-4 w-4 text-neutral-600 " />
+              {{ $t('nav.link.job') }}
+            </RouterLink>
+          </template>
+          <template v-else>
+            <button @click="modalStore.showAuthRequired"
+              class="cursor-pointer inline-flex items-center text-neutral-600 hover:text-neutral-900 transition">
+              <Icon name="LockClosed" icon-class="me-[2px] h-4 w-4 text-neutral-600" />
+              {{ $t('nav.link.job') }}
+            </button>
+          </template>
 
           <RouterLink :to="{ name: 'profile' }" v-if="isAuthenticated"
             class="inline-flex items-center text-neutral-600 hover:text-neutral-900 transition">
@@ -79,6 +97,7 @@ import { auth } from '@/config/firebase';
 import { useToastStore } from '@/stores/toast/toast';
 import { useAuthStore } from '@/stores/auth/auth';
 import { useFavoritesStore } from '@/stores/jobs/favorites';
+import { useModalStore } from '@/stores/ui/modal';
 
 export default {
   name: 'TheHeader',
@@ -99,6 +118,9 @@ export default {
     },
     favoritesStore() {
       return useFavoritesStore();
+    },
+    modalStore() {
+      return useModalStore();
     },
     getFavoriteJobsNumber() {
       return this.favoritesStore.favoriteJobs.length;
@@ -134,6 +156,11 @@ export default {
         toast.error('Logout fehlgeschlagen');
       }
     },
+
+    openAuthRequiredModal() {
+      this.modalStore.showAuthRequired();
+    }
+
   }
 }
 </script>

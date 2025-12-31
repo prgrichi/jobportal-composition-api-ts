@@ -5,6 +5,7 @@
     <main>
       <ToastContainer />
       <router-view />
+      <AuthRequiredModal :is-open="modalStore.authRequiredModalOpen" @close="modalStore.hideAuthRequired" />
     </main>
 
     <TheFooter />
@@ -15,15 +16,18 @@
 import TheHeader from '@/layouts/TheHeader.vue'
 import TheFooter from '@/layouts/TheFooter.vue'
 import ToastContainer from '@/components/ui/ToastContainer.vue';
+import AuthRequiredModal from '@/components/modal/AuthRequiredModal.vue';
 import { useAuthStore } from '@/stores/auth/auth';
 import { useFavoritesStore } from '@/stores/jobs/favorites';
+import { useModalStore } from '@/stores/ui/modal';
 
 export default {
   name: 'App',
   components: {
     TheHeader,
     TheFooter,
-    ToastContainer
+    ToastContainer,
+    AuthRequiredModal
   },
   computed: {
     authStore() {
@@ -31,7 +35,10 @@ export default {
     },
     favoritesStore() {
       return useFavoritesStore();
-    }
+    },
+    modalStore() {
+      return useModalStore();
+    },
   },
   watch: {
     'authStore.isAuthenticated': {
