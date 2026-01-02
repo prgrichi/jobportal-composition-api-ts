@@ -5,7 +5,7 @@
   <div v-else-if="job">
 
     <div class="min-h-screen bg-muted">
-      <header class="border-b border-border bg-background">
+      <header>
         <div class="mx-auto max-w-app px-4 py-5">
           <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div class="flex items-center gap-3">
