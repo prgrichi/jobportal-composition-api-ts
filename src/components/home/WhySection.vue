@@ -1,9 +1,11 @@
 <template>
+  <!-- Why Section (Features) -->
   <section class="py-12 md:py-20">
     <div class="max-w-app mx-auto px-4">
 
       <div class="grid gap-12 md:grid-cols-2 lg:items-start">
 
+        <!-- Left:  Section Header -->
         <div>
           <p class="text-sm uppercase tracking-wider text-primary-600">
             {{ $t('why.label') }}
@@ -16,8 +18,11 @@
           </p>
         </div>
 
+        <!-- Right: Features List -->
         <div class="rounded-xl border border-border bg-background divide-y divide-border">
-          <div class="p-6 md:p-7">
+
+          <!-- Feature 1: Relevant Jobs -->
+          <div class="p-6 md: p-7">
             <h3 class="font-medium text-foreground">
               {{ $t('why.features.relevantJobs.title') }}
             </h3>
@@ -26,6 +31,7 @@
             </p>
           </div>
 
+          <!-- Feature 2: Remote & Flexible -->
           <div class="p-6 md:p-7">
             <h3 class="font-medium text-foreground">
               {{ $t('why.features.remoteFlexible.title') }}
@@ -35,6 +41,7 @@
             </p>
           </div>
 
+          <!-- Feature 3: No Distraction -->
           <div class="p-6 md:p-7">
             <h3 class="font-medium text-foreground">
               {{ $t('why.features.noDistraction.title') }}
@@ -43,6 +50,7 @@
               {{ $t('why.features.noDistraction.description') }}
             </p>
           </div>
+
         </div>
 
       </div>
@@ -56,5 +64,3 @@ export default {
   name: 'WhySection',
 }
 </script>
-
-<style scoped></style>

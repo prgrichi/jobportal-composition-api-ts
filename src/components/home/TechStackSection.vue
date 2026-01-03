@@ -1,7 +1,9 @@
 <template>
+  <!-- Tech Stack Section -->
   <section class="py-20 bg-muted">
     <div class="max-w-app mx-auto px-4">
 
+      <!-- Section Header -->
       <div class="mb-14 text-center">
         <p class="text-sm uppercase tracking-wider text-primary-600">
           {{ $t('techStack.label') }}
@@ -14,11 +16,14 @@
         </p>
       </div>
 
+      <!-- Tech Stack Grid -->
       <div class="rounded-l border border-border bg-background overflow-hidden">
         <div class="grid lg:grid-cols-2 lg:divide-x lg:divide-border">
 
-          <!-- Spalte links -->
+          <!-- Left Column -->
           <div class="divide-y divide-border">
+
+            <!-- Item 01:  Vue -->
             <div class="flex items-start gap-6 p-6">
               <span class="flex h-8 w-8 items-center justify-center rounded-full
                   bg-primary-100 text-xs font-mono font-medium text-primary-500">
@@ -32,6 +37,7 @@
               </div>
             </div>
 
+            <!-- Item 02: Pinia -->
             <div class="flex items-start gap-6 p-6">
               <span class="flex h-8 w-8 items-center justify-center rounded-full
                   bg-primary-100 text-xs font-mono font-medium text-primary-600">
@@ -45,6 +51,7 @@
               </div>
             </div>
 
+            <!-- Item 03: Vue Router -->
             <div class="flex items-start gap-6 p-6">
               <span class="flex h-8 w-8 items-center justify-center rounded-full
                   bg-primary-100 text-xs font-mono font-medium text-primary-600">
@@ -57,10 +64,13 @@
                 </p>
               </div>
             </div>
+
           </div>
 
-          <!-- Spalte rechts -->
+          <!-- Right Column -->
           <div class="divide-y divide-border">
+
+            <!-- Item 04: Firebase -->
             <div class="flex items-start gap-6 p-6">
               <span class="flex h-8 w-8 items-center justify-center rounded-full
                   bg-primary-100 text-xs font-mono font-medium text-primary-600">
@@ -74,6 +84,7 @@
               </div>
             </div>
 
+            <!-- Item 05: Vite -->
             <div class="flex items-start gap-6 p-6">
               <span class="flex h-8 w-8 items-center justify-center rounded-full
                   bg-primary-100 text-xs font-mono font-medium text-primary-600">
@@ -87,6 +98,7 @@
               </div>
             </div>
 
+            <!-- Item 06: Tailwind -->
             <div class="flex items-start gap-6 p-6">
               <span class="flex h-8 w-8 items-center justify-center rounded-full
                   bg-primary-100 text-xs font-mono font-medium text-primary-600">
@@ -99,6 +111,7 @@
                 </p>
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -112,5 +125,3 @@ export default {
   name: 'TechStackSection',
 }
 </script>
-
-<style scoped></style>
