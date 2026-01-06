@@ -47,7 +47,7 @@
         </RouterLink>
 
         <!-- Mobile Menu Toggle Button -->
-        <button v-if="authReady" @click="toggleMenu" class="md:hidden p-2 text-muted-foreground">
+        <button v-if="authReady" @click="toggleMenu" class="md:hidden min-w-11 min-h-11 p-2 text-muted-foreground">
           <Icon :name="mobileMenuOpen ? 'XMark' : 'Bars3'" icon-class="h-6 w-6" />
         </button>
 
