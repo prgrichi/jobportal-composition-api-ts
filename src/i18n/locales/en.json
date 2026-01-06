@@ -32,6 +32,9 @@
   },
   "nav": {
     "userGreeting": "Hello",
+    "switchToGerman": "Switch to German",
+    "switchToEnglish": "Switch to English",
+    "languageSelector": "Language selection",
     "link": {
       "homepage": "Job Portal",
       "job": "Find job",

@@ -21,12 +21,14 @@
             </div>
 
             <!-- Language Switcher -->
-            <div class="flex items-center gap-2" aria-label="Sprachwahl">
-              <button :class="deClasses" @click="changeLang('de')" class="cursor-pointer text-white">
+            <div class="flex items-center gap-2" role="group" :aria-label="$t('nav.languageSelector')">
+              <button :class="deClasses" :aria-label="$t('nav.switchToGerman')" :aria-current="currentLangDe"
+                @click="changeLang('de')" class="cursor-pointer text-white">
                 DE
               </button>
               <span class="text-neutral-300" aria-hidden="true">|</span>
-              <button :class="enClasses" @click="changeLang('en')" class="cursor-pointer text-white">
+              <button :class="enClasses" :aria-label="$t('nav.switchToEnglish')" :aria-current="currentLangEn"
+                @click="changeLang('en')" class="cursor-pointer text-white">
                 EN
               </button>
             </div>
@@ -181,7 +183,12 @@ export default {
     currentLocale() {
       return this.$i18n.locale;
     },
-
+    currentLangDe() {
+      return this.currentLocale === 'de' ? 'true' : 'false';
+    },
+    currentLangEn() {
+      return this.currentLocale === 'en' ? 'true' : 'false';
+    },
     // German button classes (active/inactive)
     deClasses() {
       return this.currentLocale === 'de'
