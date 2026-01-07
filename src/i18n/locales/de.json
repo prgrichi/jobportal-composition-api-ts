@@ -33,6 +33,8 @@
     "switchToGerman": "Wechsel zu Deutsch",
     "switchToEnglish": "Wechsel zu Englisch",
     "languageSelector": "Sprachauswahl",
+    "openMobileMenu": "Menü öffnen",
+    "closeMobileMenu": "Menü schließen",
     "link": {
       "homepage": "Job Portal",
       "job": "Job finden",
@@ -66,6 +68,7 @@
       "email": "E-Mail",
       "password": "Passwort",
       "confirmPassword": "Passwort bestätigen",
+      "showPassword": "Passwort anzeigen",
       "placeholder": {
         "email": "Gib deine E-Mail ein",
         "password": "Gib dein Passwort ein",
@@ -134,7 +137,9 @@
       "favoritesLoading": "Lade gespeicherten Jobs...",
       "noFavoritesTitle": "Du hast noch keine gespeicherten Jobs.",
       "noFavoritesText": "Speichere Jobs, um sie später wiederzufinden.",
-      "save": "Merken"
+      "save": "Merken",
+      "addToFavoritesLabel": "{title} bei {company} zu Favoriten hinzufügen",
+      "removeFromFavoritesLabel": "{title} bei {company} von Favoriten entfernen"
     },
     "jobDetail": {
       "ctaText1": "Interessiert?",

@@ -52,12 +52,12 @@
 
       <!-- Favorite Button -->
       <div class="inline-flex group/star items-center gap-2 mt-4">
-        <button @click="handleFavoriteClick" class="inline-flex items-center gap-1.5 cursor-pointer">
-          <!-- Star Icon (solid if favorited, outline if not) -->
+        <button type="button" :aria-pressed="isFavorited" :aria-label="favoriteButtonLabel" @click="handleFavoriteClick"
+          class="inline-flex items-center gap-1.5 cursor-pointer">
           <Icon name="Star" :type="starType" :icon-class="starIconClass" />
           <span class="text-sm text-primary-500 transition-all duration-150 
                    group-hover/star:underline group-hover/star:underline-offset-4">
-            Merken
+            {{ $t('jobs.favorites.save') }}
           </span>
         </button>
       </div>
@@ -130,6 +130,11 @@ export default {
     // Check if job is favorited
     isFavorited() {
       return this.favoritesStore.isJobFavorited(this.job.id);
+    },
+    favoriteButtonLabel() {
+      return this.isFavorited
+        ? this.$t('jobs.favorites.removeFromFavoritesLabel', { title: this.job.title, company: this.job.company })
+        : this.$t('jobs.favorites.addToFavoritesLabel', { title: this.job.title, company: this.job.company });
     }
   },
 

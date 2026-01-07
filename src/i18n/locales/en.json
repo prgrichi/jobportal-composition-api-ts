@@ -35,6 +35,8 @@
     "switchToGerman": "Switch to German",
     "switchToEnglish": "Switch to English",
     "languageSelector": "Language selection",
+    "openMobileMenu": "Open menu",
+    "closeMobileMenu": "Close menu",
     "link": {
       "homepage": "Job Portal",
       "job": "Find job",
@@ -68,6 +70,7 @@
       "email": "Email",
       "password": "Password",
       "confirmPassword": "Confirm password",
+      "showPassword": "Show password",
       "placeholder": {
         "email": "Enter your email",
         "password": "Enter your password",
@@ -138,7 +141,9 @@
       "favoritesLoading": "Loading your saved jobs...",
       "noFavoritesTitle": "You haven't saved any jobs yet.",
       "noFavoritesText": "Save jobs to find them again later.",
-      "save": "Save"
+      "save": "Save",
+      "addToFavoritesLabel": "Add {title} at {company} to favorites",
+      "removeFromFavoritesLabel": "Remove {title} at {company} from favorites"
     },
     "jobDetail": {
       "ctaText1": "Interested? ",
