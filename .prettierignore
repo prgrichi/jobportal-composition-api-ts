@@ -1,0 +1,24 @@
+# Build Output
+dist
+dist-ssr
+
+# Coverage Reports
+coverage
+
+# Dependencies
+node_modules
+
+# Firebase
+.firebase
+firebase-debug.log
+
+# Scripts & Config (optional - nur wenn du die nicht formatieren willst)
+scripts/serviceAccountKey.json
+scripts/jobs.json
+
+# System Files
+.DS_Store
+*.log
+
+# Lock Files
+package-lock.json

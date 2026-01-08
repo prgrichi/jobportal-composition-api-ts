@@ -19,10 +19,10 @@ export const useJobStore = defineStore('jobs', {
   }),
 
   getters: {
-    availableLocations(state) {
+    availableLocations(_state) {
       return this.getUniqueValues('location');
     },
-    availableLevels(state) {
+    availableLevels(_state) {
       return this.getUniqueValues('level');
     },
     filteredJobs(state) {

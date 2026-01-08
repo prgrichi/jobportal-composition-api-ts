@@ -128,3 +128,7 @@ npm run build
 
 ## Live Demo
 https://jobportal-8a79b.web.app/
+
+
+# Miscellaneous
+Structure erstellen: :tree -L 5 -I 'node_modules|dist|.git' > structure.txt

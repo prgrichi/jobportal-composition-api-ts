@@ -15,14 +15,12 @@ export const useModalStore = defineStore('modal', {
       this.authRequiredModalOpen = false;
     },
 
-    showJobApplication(jobId) {
-      // this.selectedJobId = jobId;
+    showJobApplication(_jobId) {
       this.jobApplicationModalOpen = true;
     },
 
     hideJobApplication() {
       this.jobApplicationModalOpen = false;
-      // this.selectedJobId = null;
     }
   }
 });

@@ -174,7 +174,7 @@ export default {
       get() {
         return this.themeStore.isDark;
       },
-      set(value) {
+      set(_value) {
         this.themeStore.toggle();
       }
     },
@@ -234,7 +234,7 @@ export default {
         await signOut(auth);
         toast.success('Erfolgreich ausgeloggt');
         this.$router.push({ name: 'home' });
-      } catch (err) {
+      } catch (_err) {
         toast.error('Logout fehlgeschlagen');
       }
     },

@@ -26,7 +26,6 @@ import { useAuthStore } from '@/stores/auth/auth';
 import { useFavoritesStore } from '@/stores/jobs/favorites';
 import { useModalStore } from '@/stores/ui/modal';
 import { useThemeStore } from './stores/ui/theme';
-import i18n from './i18n/index.js';
 
 export default {
   name: 'App',

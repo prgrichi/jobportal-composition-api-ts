@@ -1,4 +1,69 @@
 .
+├── coverage
+│   ├── base.css
+│   ├── block-navigation.js
+│   ├── clover.xml
+│   ├── coverage-final.json
+│   ├── favicon.png
+│   ├── index.html
+│   ├── jobportal
+│   │   ├── index.html
+│   │   ├── scripts
+│   │   │   ├── import.js.html
+│   │   │   └── index.html
+│   │   ├── src
+│   │   │   ├── App.vue.html
+│   │   │   ├── components
+│   │   │   │   ├── auth
+│   │   │   │   ├── debug
+│   │   │   │   ├── home
+│   │   │   │   ├── jobs
+│   │   │   │   ├── modal
+│   │   │   │   ├── profile
+│   │   │   │   └── ui
+│   │   │   ├── config
+│   │   │   │   ├── firebase.js.html
+│   │   │   │   └── index.html
+│   │   │   ├── i18n
+│   │   │   │   ├── index.html
+│   │   │   │   └── index.js.html
+│   │   │   ├── index.html
+│   │   │   ├── layouts
+│   │   │   │   ├── index.html
+│   │   │   │   ├── TheFooter.vue.html
+│   │   │   │   └── TheHeader.vue.html
+│   │   │   ├── main.js.html
+│   │   │   ├── pages
+│   │   │   │   ├── FavoriteJobsPage.vue.html
+│   │   │   │   ├── HomePage.vue.html
+│   │   │   │   ├── index.html
+│   │   │   │   ├── JobsDetailPage.vue.html
+│   │   │   │   ├── JobsPage.vue.html
+│   │   │   │   ├── LoginPage.vue.html
+│   │   │   │   ├── NotFoundPage.vue.html
+│   │   │   │   ├── ProfilePage.vue.html
+│   │   │   │   └── RegisterPage.vue.html
+│   │   │   ├── router
+│   │   │   │   ├── index.html
+│   │   │   │   └── index.js.html
+│   │   │   ├── schemas
+│   │   │   │   ├── index.html
+│   │   │   │   ├── index.js.html
+│   │   │   │   ├── jobApplicationSchema.js.html
+│   │   │   │   ├── loginSchema.js.html
+│   │   │   │   └── registerSchema.js.html
+│   │   │   └── stores
+│   │   │       ├── auth
+│   │   │       ├── jobs
+│   │   │       ├── toast
+│   │   │       ├── ui
+│   │   │       └── user
+│   │   └── tailwind.config.js.html
+│   ├── prettify.css
+│   ├── prettify.js
+│   ├── sort-arrow-sprite.png
+│   └── sorter.js
+├── eslint.config.js
 ├── firebase.json
 ├── icons
 │   └── pinia.svg
@@ -32,20 +97,41 @@
 │   │   │   ├── ThreeJobsTeaserPlaceholder.vue
 │   │   │   └── WhySection.vue
 │   │   ├── jobs
-│   │   │   ├── JobFilter.vue
-│   │   │   ├── JobList.vue
-│   │   │   ├── Jobs.vue
-│   │   │   ├── JobsFavorite.vue
+│   │   │   ├── detail
+│   │   │   │   ├── JobDetailCTA.vue
+│   │   │   │   ├── JobDetailHeader.vue
+│   │   │   │   ├── JobDetailHero.vue
+│   │   │   │   ├── JobDetailPanel.vue
+│   │   │   │   ├── JobDetailPanels.vue
+│   │   │   │   ├── JobDetailSidebar.vue
+│   │   │   │   └── JobDetailSpec.vue
+│   │   │   ├── filter
+│   │   │   │   ├── JobFilterReset.vue
+│   │   │   │   ├── JobLevelSelect.vue
+│   │   │   │   ├── JobLocationSelect.vue
+│   │   │   │   └── JobSearchInput.vue
 │   │   │   ├── JobCard.vue
-│   │   │   └── JobCardSkeleton.vue
+│   │   │   ├── JobCardSkeleton.vue
+│   │   │   ├── JobFilters.vue
+│   │   │   ├── JobList.vue
+│   │   │   └── JobsFavorite.vue
 │   │   ├── modal
-│   │   │   └── AuthRequiredModal.vue
+│   │   │   ├── AuthRequiredModal.vue
+│   │   │   ├── BaseModal.vue
+│   │   │   └── JobApplicationModal.vue
 │   │   ├── profile
+│   │   │   ├── form
+│   │   │   │   ├── ProfileFormActions.vue
+│   │   │   │   └── ProfileFormField.vue
 │   │   │   ├── Profile.vue
-│   │   │   └── ProfileField.vue
+│   │   │   ├── ProfileEdit.vue
+│   │   │   ├── ProfileField.vue
+│   │   │   ├── ProfileHeader.vue
+│   │   │   └── ProfileView.vue
 │   │   └── ui
 │   │       ├── Icon.vue
-│   │       └── ToastContainer.vue
+│   │       ├── ToastContainer.vue
+│   │       └── ToggleSwitch.vue
 │   ├── config
 │   │   └── firebase.js
 │   ├── i18n
@@ -69,6 +155,11 @@
 │   │   └── RegisterPage.vue
 │   ├── router
 │   │   └── index.js
+│   ├── schemas
+│   │   ├── index.js
+│   │   ├── jobApplicationSchema.js
+│   │   ├── loginSchema.js
+│   │   └── registerSchema.js
 │   ├── stores
 │   │   ├── auth
 │   │   │   └── auth.js
@@ -78,6 +169,7 @@
 │   │   ├── toast
 │   │   │   └── toast.js
 │   │   ├── ui
+│   │   │   ├── locale.js
 │   │   │   ├── modal.js
 │   │   │   └── theme.js
 │   │   └── user
@@ -85,6 +177,9 @@
 │   └── ui.css
 ├── structure.txt
 ├── tailwind.config.js
+├── tests
+│   ├── stores
+│   └── utils
 └── vite.config.js
 
-25 directories, 63 files
+56 directories, 127 files
