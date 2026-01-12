@@ -6,15 +6,12 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'ProfileField',
-  props: {
-    label: {
-      type: String,
-      required: true
-    },
-    value: [String, Number]
-  }
-}
+<script setup>
+defineProps({
+  label: {
+    type: String,
+    required: true,
+  },
+  value: [String, Number],
+});
 </script>

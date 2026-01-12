@@ -9,19 +9,15 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'ProfileHeader',
-
-  props: {
-    title: {
-      type: String,
-      required: true
-    },
-    subtitle: {
-      type: String,
-      default: ''
-    }
-  }
-}
+<script setup>
+defineProps({
+  title: {
+    type: String,
+    required: true,
+  },
+  subtitle: {
+    type: String,
+    default: '',
+  },
+});
 </script>

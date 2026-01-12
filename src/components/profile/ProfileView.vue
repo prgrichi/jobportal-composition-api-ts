@@ -1,6 +1,5 @@
 <template>
   <div class="bg-background rounded-lg shadow p-6">
-
     <!-- User Header -->
     <div class="flex items-center gap-4 mb-6">
       <div>
@@ -21,39 +20,30 @@
 
     <!-- Actions -->
     <div class="mt-6">
-      <button class="btn btn-primary" @click="$emit('edit')">
+      <button class="btn btn-primary" @click="emit('edit')">
         {{ editButtonText }}
       </button>
     </div>
-
   </div>
 </template>
 
-<script>
+<script setup>
 import ProfileField from './ProfileField.vue';
 
-export default {
-  name: 'ProfileView',
-
-  components: {
-    ProfileField
+defineProps({
+  profile: {
+    type: Object,
+    required: true,
   },
-
-  props: {
-    profile: {
-      type: Object,
-      required: true
-    },
-    displayName: {
-      type: String,
-      required: true
-    },
-    editButtonText: {
-      type: String,
-      default: 'Bearbeiten'
-    }
+  displayName: {
+    type: String,
+    required: true,
   },
+  editButtonText: {
+    type: String,
+    default: 'Bearbeiten',
+  },
+});
 
-  emits: ['edit']
-}
+const emit = defineEmits(['edit']);
 </script>
