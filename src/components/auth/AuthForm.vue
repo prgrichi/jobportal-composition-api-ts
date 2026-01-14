@@ -118,7 +118,6 @@ import { Form, Field, ErrorMessage } from 'vee-validate';
 import { useI18n } from 'vue-i18n';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
-import Icon from '@/components/ui/Icon.vue';
 import { useToastStore } from '@/stores/toast/toast';
 import { useAuthStore } from '@/stores/auth/auth';
 import { auth } from '@/config/firebase';

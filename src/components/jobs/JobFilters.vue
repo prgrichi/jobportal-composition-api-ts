@@ -37,7 +37,6 @@ import { ref, computed, watch } from 'vue';
 import { useJobStore } from '@/stores/jobs/jobs';
 import { debounce } from 'lodash-es';
 
-import Icon from '@/components/ui/Icon.vue';
 import JobSearchInput from './filter/JobSearchInput.vue';
 import JobLocationSelect from './filter/JobLocationSelect.vue';
 import JobLevelSelect from './filter/JobLevelSelect.vue';

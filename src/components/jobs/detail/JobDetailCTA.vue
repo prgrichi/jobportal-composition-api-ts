@@ -33,7 +33,6 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useFavoritesStore } from '@/stores/jobs/favorites';
-import Icon from '@/components/ui/Icon.vue';
 
 const { t } = useI18n();
 

@@ -48,7 +48,6 @@
 import { computed } from 'vue';
 import { useFavoritesStore } from '@/stores/jobs/favorites';
 import JobCard from '@/components/jobs/JobCard.vue';
-import Icon from '@/components/ui/Icon.vue';
 
 const favoritesStore = useFavoritesStore();
 
