@@ -20,36 +20,26 @@
   </BaseModal>
 </template>
 
-<script>
+<script setup>
 import BaseModal from './BaseModal.vue';
+import { useRouter } from 'vue-router';
 
-export default {
-  name: 'AuthRequiredModal',
-
-  components: {
-    BaseModal
+defineProps({
+  isOpen: {
+    type: Boolean,
+    required: true,
   },
+});
 
-  props: {
-    isOpen: {
-      type: Boolean,
-      required: true
-    }
-  },
+const emit = defineEmits(['close']);
 
-  emits: ['close'],
+const onClose = () => {
+  emit('close');
+};
 
-  methods: {
-    // Close modal
-    onClose() {
-      this.$emit('close');
-    },
-
-    // Redirect to login page
-    goToLogin() {
-      this.$emit('close');
-      this.$router.push('/login');
-    }
-  }
+const router = useRouter();
+const goToLogin = () => {
+  emit('close');
+  router.push('/login');
 };
 </script>

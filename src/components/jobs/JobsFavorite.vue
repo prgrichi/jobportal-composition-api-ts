@@ -2,7 +2,6 @@
   <!-- Favorite Jobs Page -->
   <div>
     <div class="max-w-app mx-auto">
-
       <!-- Page Header -->
       <div class="mb-8" v-if="favoritesFoundCount !== 0">
         <h1 class="text-2xl font-bold text-foreground mb-2">
@@ -41,38 +40,24 @@
       <div v-else class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <JobCard v-for="job in favoriteJobs" :key="job.id" :job="job" />
       </div>
-
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue';
 import { useFavoritesStore } from '@/stores/jobs/favorites';
 import JobCard from '@/components/jobs/JobCard.vue';
-import Icon from '@/components/ui/Icon.vue';
 
-export default {
-  name: 'FavoriteJobsPage',
+const favoritesStore = useFavoritesStore();
 
-  components: {
-    JobCard,
-    Icon
-  },
+// List of favorite jobs
+const favoriteJobs = computed(() => {
+  return favoritesStore.favoriteJobs;
+});
 
-  computed: {
-    favoritesStore() {
-      return useFavoritesStore();
-    },
-
-    // List of favorite jobs
-    favoriteJobs() {
-      return this.favoritesStore.favoriteJobs;
-    },
-
-    // Count of favorites (for display)
-    favoritesFoundCount() {
-      return this.favoriteJobs.length;
-    }
-  }
-}
+// Count of favorites (for display)
+const favoritesFoundCount = computed(() => {
+  return favoriteJobs.value.length;
+});
 </script>

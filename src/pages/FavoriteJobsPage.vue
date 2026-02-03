@@ -6,15 +6,8 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import JobsFavorite from '@/components/jobs/JobsFavorite.vue';
-
-export default {
-  name: 'FavoriteJobsPage',
-  components: {
-    JobsFavorite
-  },
-}
 </script>
 
 <style scoped></style>

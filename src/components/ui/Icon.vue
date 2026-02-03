@@ -3,7 +3,9 @@
   <component :is="iconComponent" :class="iconClass" />
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue';
+
 // Heroicons Outline
 import {
   UserIcon,
@@ -16,13 +18,11 @@ import {
   MoonIcon,
   CheckIcon,
   EyeIcon,
-  EyeSlashIcon
+  EyeSlashIcon,
 } from '@heroicons/vue/24/outline';
 
 // Heroicons Solid
-import {
-  StarIcon as StarIconSolid,
-} from '@heroicons/vue/24/solid';
+import { StarIcon as StarIconSolid } from '@heroicons/vue/24/solid';
 
 // Icon Registry
 const ICONS = {
@@ -41,36 +41,34 @@ const ICONS = {
   },
   solid: {
     Star: StarIconSolid,
-  }
+  },
 };
 
-export default {
-  name: 'Icon',
-
-  props: {
-    // Icon name (must match key in ICONS registry)
-    name: {
-      type: String,
-      required: true
-    },
-    // Icon type (outline or solid)
-    type: {
-      type: String,
-      default: 'outline',
-      validator: (value) => ['outline', 'solid'].includes(value)
-    },
-    // Custom CSS classes for icon
-    iconClass: {
-      type: String,
-      default: 'h-6 w-6'
-    }
+const props = defineProps({
+  // Icon name (must match key in ICONS registry)
+  name: {
+    type: String,
+    required: true,
   },
+  type: {
+    type: String,
+    default: 'outline',
+    validator: value => ['outline', 'solid'].includes(value),
+  },
+  // Custom CSS classes for icon
+  iconClass: {
+    type: String,
+    default: 'h-6 w-6',
+  },
+});
 
-  computed: {
-    // Get icon component from registry
-    iconComponent() {
-      return ICONS[this.type]?.[this.name];
-    }
+const iconComponent = computed(() => {
+  const icon = ICONS[props.type]?.[props.name];
+  if (!icon) {
+    console.warn(`[Icon] Unknown icon: type="${props.type}", name="${props.name}"`);
   }
-}
+  return icon;
+});
 </script>
+
+<style scoped></style>

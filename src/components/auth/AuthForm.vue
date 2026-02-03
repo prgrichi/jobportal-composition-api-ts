@@ -1,18 +1,27 @@
 <template>
-
   <!-- Auth Form (Login/Register) -->
-  <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors }"
-    class="max-w-md mx-auto rounded-lg mt-10">
-
+  <Form
+    @submit="onSubmit"
+    :validation-schema="schema"
+    v-slot="{ errors }"
+    class="max-w-md mx-auto rounded-lg mt-10"
+  >
     <!-- Email Field -->
     <div class="mb-4">
       <label for="email" class="block text-sm font-medium text-muted-foreground mb-1">
         {{ $t('auth.general.email') }}
       </label>
-      <Field as="input" name="email" type="email" id="email" autocomplete="email"
+      <Field
+        as="input"
+        name="email"
+        type="email"
+        id="email"
+        autocomplete="email"
         class="w-full border bg-background border-border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-ring"
-        :placeholder="$t('auth.general.placeholder.email')" :aria-invalid="!!errors.email"
-        :aria-describedby="errors.email ? 'email-error' : undefined" />
+        :placeholder="$t('auth.general.placeholder.email')"
+        :aria-invalid="!!errors.email"
+        :aria-describedby="errors.email ? 'email-error' : undefined"
+      />
       <ErrorMessage name="email" v-slot="{ message }">
         <small id="email-error" class="text-red-500">{{ message }}</small>
       </ErrorMessage>
@@ -24,12 +33,23 @@
         {{ $t('auth.general.password') }}
       </label>
       <div class="relative">
-        <Field as="input" :type="toggleInputType" name="password" id="password" :autocomplete="passwordAutocomplete"
+        <Field
+          as="input"
+          :type="toggleInputType"
+          name="password"
+          id="password"
+          :autocomplete="passwordAutocomplete"
           class="w-full border bg-background border-border rounded-md p-2 pr-12 focus:outline-none focus:ring-2 focus:ring-ring"
-          :placeholder="$t('auth.general.placeholder.password')" :aria-invalid="!!errors.password"
-          :aria-describedby="errors.password ? 'password-error' : undefined" />
-        <button type="button" @click="togglePassword" class="h-full cursor-pointer absolute p-2 right-1 top-0"
-          :aria-label="showPasswordLabel">
+          :placeholder="$t('auth.general.placeholder.password')"
+          :aria-invalid="!!errors.password"
+          :aria-describedby="errors.password ? 'password-error' : undefined"
+        />
+        <button
+          type="button"
+          @click="togglePassword"
+          class="h-full cursor-pointer absolute p-2 right-1 top-0"
+          :aria-label="showPasswordLabel"
+        >
           <Icon aria-hidden="true" :name="showPassword ? 'EyeSlash' : 'Eye'" icon-class="h-5 w-5" />
         </button>
       </div>
@@ -44,14 +64,28 @@
         {{ $t('auth.general.confirmPassword') }}
       </label>
       <div class="relative">
-        <Field as="input" name="confirmPassword" :type="toggleConfirmInputType" id="confirmPassword"
+        <Field
+          as="input"
+          name="confirmPassword"
+          :type="toggleConfirmInputType"
+          id="confirmPassword"
           autocomplete="new-password"
           class="w-full border bg-background border-border rounded-md p-2 pr-12 focus:outline-none focus:ring-2 focus:ring-ring"
-          :placeholder="$t('auth.general.placeholder.confirmPassword')" :aria-invalid="!!errors.confirmPassword"
-          :aria-describedby="errors.confirmPassword ? 'password-confirm-error' : undefined" />
-        <button type="button" @click="toggleConfirmPassword" class="h-full cursor-pointer absolute p-2 right-1 top-0"
-          :aria-label="showPasswordConfirmLabel">
-          <Icon aria-hidden="true" :name="showConfirmPassword ? 'EyeSlash' : 'Eye'" icon-class="h-5 w-5" />
+          :placeholder="$t('auth.general.placeholder.confirmPassword')"
+          :aria-invalid="!!errors.confirmPassword"
+          :aria-describedby="errors.confirmPassword ? 'password-confirm-error' : undefined"
+        />
+        <button
+          type="button"
+          @click="toggleConfirmPassword"
+          class="h-full cursor-pointer absolute p-2 right-1 top-0"
+          :aria-label="showPasswordConfirmLabel"
+        >
+          <Icon
+            aria-hidden="true"
+            :name="showConfirmPassword ? 'EyeSlash' : 'Eye'"
+            icon-class="h-5 w-5"
+          />
         </button>
       </div>
       <ErrorMessage name="confirmPassword" v-slot="{ message }">
@@ -60,151 +94,134 @@
     </div>
 
     <!-- Submit Button -->
-    <button type="submit" :disabled="isLoading" :aria-busy="isLoading" class="btn btn-primary w-full">
+    <button
+      type="submit"
+      :disabled="isLoading"
+      :aria-busy="isLoading"
+      class="btn btn-primary w-full"
+    >
       <!-- Loading Spinner -->
-      <span v-if="isLoading" aria-hidden="true"
-        class="h-4 w-4 animate-spin rounded-full border-2 border-background border-t-transparent"></span>
+      <span
+        v-if="isLoading"
+        aria-hidden="true"
+        class="h-4 w-4 animate-spin rounded-full border-2 border-background border-t-transparent"
+      ></span>
       <span>{{ submitLabel }}</span>
     </button>
-
   </Form>
-
 </template>
 
-<script>
+<script setup>
+import { computed, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { Form, Field, ErrorMessage } from 'vee-validate';
-import { useToastStore } from '@/stores/toast/toast';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@/config/firebase';
-import { useAuthStore } from '@/stores/auth/auth';
 import { useI18n } from 'vue-i18n';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+
+import { useToastStore } from '@/stores/toast/toast';
+import { useAuthStore } from '@/stores/auth/auth';
+import { auth } from '@/config/firebase';
 import { createLoginSchema, createRegisterSchema } from '@/schemas';
 
-export default {
-  name: 'AuthForm',
+// i18n
+const { t } = useI18n();
 
-  setup() {
-    const { t, locale } = useI18n();
-    return { t, locale };
+// Props
+const props = defineProps({
+  mode: {
+    type: String,
+    required: true,
+    validator: value => ['login', 'register'].includes(value),
   },
+});
 
-  components: {
-    Form,
-    Field,
-    ErrorMessage
-  },
+// State
+const isLoading = ref(false);
+const showPassword = ref(false);
+const showConfirmPassword = ref(false);
 
-  props: {
-    mode: {
-      type: String,
-      required: true,
-      validator: (value) => ['login', 'register'].includes(value)
+// Stores
+const authStore = useAuthStore();
+const toast = useToastStore();
+
+// Router
+const router = useRouter();
+const route = useRoute();
+
+// Computeds
+const passwordAutocomplete = computed(() =>
+  props.mode === 'register' ? 'new-password' : 'current-password'
+);
+
+const schema = computed(() =>
+  props.mode === 'login' ? createLoginSchema() : createRegisterSchema()
+);
+
+const toggleInputType = computed(() => (showPassword.value ? 'text' : 'password'));
+
+const toggleConfirmInputType = computed(() => (showConfirmPassword.value ? 'text' : 'password'));
+
+const submitLabel = computed(() => {
+  if (props.mode === 'register') {
+    return isLoading.value
+      ? t('general.btn.ui.creatingAccount')
+      : t('general.btn.ui.createAccount');
+  }
+  return isLoading.value ? t('general.btn.ui.signingIn') : t('general.btn.ui.signIn');
+});
+
+const showPasswordLabel = computed(() =>
+  showPassword.value ? t('auth.general.hidePassword') : t('auth.general.showPassword')
+);
+
+const showPasswordConfirmLabel = computed(() =>
+  showConfirmPassword.value ? t('auth.general.hidePassword') : t('auth.general.showPassword')
+);
+
+// Methods
+const onSubmit = async values => {
+  try {
+    isLoading.value = true;
+
+    if (props.mode === 'register') {
+      // Register Mode
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
+      await authStore.createUserDocument(userCredential.user);
+      toast.success(t('toast.registerSuccess'));
+      await router.push({ name: 'home' });
+    } else {
+      // Login Mode
+      const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
+      await authStore.createUserDocument(userCredential.user);
+      toast.success(t('toast.loginSuccess'));
+
+      // Redirect to previous page or home
+      const redirectPath = route.query.redirect || '/';
+      await router.push(redirectPath);
     }
-  },
-
-  data() {
-    return {
-      isLoading: false,
-      showPassword: false,
-      showConfirmPassword: false
-    };
-  },
-
-  computed: {
-    authStore() {
-      return useAuthStore();
-    },
-    toast() {
-      return useToastStore();
-    },
-    passwordAutocomplete() {
-      return this.mode === 'register' ? 'new-password' : 'current-password';
-    },
-    schema() {
-      return this.mode === 'login' ? createLoginSchema() : createRegisterSchema();
-    },
-    toggleInputType() {
-      return this.showPassword ? 'text' : 'password';
-    },
-    toggleConfirmInputType() {
-      return this.showConfirmPassword ? 'text' : 'password';
-    },
-    // Dynamic Submit Button Label
-    submitLabel() {
-      if (this.mode === 'register') {
-        return this.isLoading
-          ? this.t('general.btn.ui.creatingAccount')
-          : this.t('general.btn.ui.createAccount');
-      }
-      return this.isLoading
-        ? this.t('general.btn.ui.signingIn')
-        : this.t('general.btn.ui.signIn');
-    },
-    showPasswordLabel() {
-      return this.showPassword
-        ? this.t('auth.general.hidePassword')
-        : this.t('auth.general.showPassword');
-    },
-    showPasswordConfirmLabel() {
-      return this.showConfirmPassword
-        ? this.t('auth.general.hidePassword')
-        : this.t('auth.general.showPassword');
+  } catch (error) {
+    // Handle Firebase Auth Errors
+    if (error.code === 'auth/invalid-credential') {
+      toast.error(t('errors.invalidCredentials'));
+    } else if (error.code === 'auth/email-already-in-use') {
+      toast.error(t('errors.emailAlreadyInUse'));
+    } else {
+      toast.error(error.message);
     }
-  },
+  } finally {
+    isLoading.value = false;
+  }
+};
 
-  methods: {
-    async onSubmit(values) {
-      try {
-        this.isLoading = true;
+const togglePassword = () => {
+  showPassword.value = !showPassword.value;
+};
 
-        // Register Mode
-        if (this.mode === 'register') {
-          const userCredential = await createUserWithEmailAndPassword(
-            auth,
-            values.email,
-            values.password
-          );
-          await this.authStore.createUserDocument(userCredential.user);
-          this.toast.success(this.t('toast.registerSuccess'));
-          this.$router.push({ name: 'home' });
-        }
-        // Login Mode
-        else {
-          const userCredential = await signInWithEmailAndPassword(
-            auth,
-            values.email,
-            values.password
-          );
-          await this.authStore.createUserDocument(userCredential.user);
-          this.toast.success(this.t('toast.loginSuccess'));
-
-          // Redirect to previous page or home
-          const redirectPath = this.$route.query.redirect || '/';
-          this.$router.push(redirectPath);
-        }
-
-        this.isLoading = false;
-      } catch (error) {
-        this.isLoading = false;
-
-        // Handle Firebase Auth Errors
-        if (error.code === 'auth/invalid-credential') {
-          this.toast.error(this.t('errors. invalidCredentials'));
-        }
-        else if (error.code === 'auth/email-already-in-use') {
-          this.toast.error(this.t('errors.emailAlreadyInUse'));
-        }
-        else {
-          this.toast.error(error.message);
-        }
-      }
-    },
-    togglePassword() {
-      this.showPassword = !this.showPassword;
-    },
-    toggleConfirmPassword() {
-      this.showConfirmPassword = !this.showConfirmPassword;
-    }
-  },
-}
+const toggleConfirmPassword = () => {
+  showConfirmPassword.value = !showConfirmPassword.value;
+};
 </script>

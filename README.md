@@ -1,3 +1,7 @@
+# MIGRATION TO COMPOSITION API
+
+WIP
+
 # 🎯 Job Portal - Vue.js Application
 
 ![Vue.js](https://img.shields.io/badge/Vue.js-3.5-4FC08D?logo=vuedotjs&logoColor=white)
@@ -152,6 +156,7 @@ Seamless dark mode with system preference detection and manual toggle.
 This application follows **WCAG 2.1 Level AA** guidelines to ensure an inclusive user experience for all users.
 
 ### 🎯 Keyboard Navigation
+
 - **Full Keyboard Support** - All interactive elements accessible via keyboard
 - **Focus Management** - Visible focus indicators with custom ring styles
 - **Logical Tab Order** - Semantic HTML ensures natural tab flow
@@ -159,6 +164,7 @@ This application follows **WCAG 2.1 Level AA** guidelines to ensure an inclusive
 - **Enter/Space** - Activate buttons and links
 
 ### 🔍 Screen Reader Support
+
 - **ARIA Labels** - Descriptive labels for icon buttons and interactive elements
   ```vue
   <button :aria-label="favoriteButtonLabel">
@@ -166,9 +172,7 @@ This application follows **WCAG 2.1 Level AA** guidelines to ensure an inclusive
   ```
 - **ARIA States** - Dynamic state announcements
   ```vue
-  :aria-pressed="isFavorited"
-  :aria-busy="isLoading"
-  :aria-invalid="!!errors.email"
+  :aria-pressed="isFavorited" :aria-busy="isLoading" :aria-invalid="!!errors.email"
   ```
 - **ARIA Descriptions** - Error messages linked to form fields
   ```vue
@@ -181,6 +185,7 @@ This application follows **WCAG 2.1 Level AA** guidelines to ensure an inclusive
   ```
 
 ### 🏗️ Semantic HTML
+
 - **Proper Landmarks** - `<header>`, `<nav>`, `<main>`, `<article>`, `<section>`
 - **Heading Hierarchy** - Logical `<h1>` to `<h3>` structure
 - **Form Labels** - All inputs have associated `<label>` elements
@@ -188,6 +193,7 @@ This application follows **WCAG 2.1 Level AA** guidelines to ensure an inclusive
 - **Link vs Button** - Semantic distinction (navigation vs actions)
 
 ### 🎨 Visual Accessibility
+
 - **Color Contrast** - WCAG AA compliant (4.5:1 for text)
 - **Focus Indicators** - Custom `focus:ring-2` focus states
 - **No Color-Only Info** - Icons + text for status/actions
@@ -195,22 +201,23 @@ This application follows **WCAG 2.1 Level AA** guidelines to ensure an inclusive
 - **Dark Mode** - Maintains contrast ratios in both themes
 
 ### 📝 Form Accessibility
+
 - **Inline Validation** - Real-time error messages with ARIA
 - **Error Prevention** - Client-side validation before submission
 - **Clear Instructions** - Placeholder text and labels
 - **Autocomplete Attributes** - Browser autofill support
   ```vue
-  autocomplete="email"
-  autocomplete="current-password"
-  autocomplete="new-password"
+  autocomplete="email" autocomplete="current-password" autocomplete="new-password"
   ```
 - **Password Visibility** - Toggle with accessible labels
 
 ### 🧪 Accessibility Testing
+
 - **Manual Testing** - Keyboard-only navigation verified
 - **Screen Reader Testing** - Tested with VoiceOver (macOS)
 
 ### 📋 Best Practices Applied
+
 - ✅ Skip links for main content (future enhancement)
 - ✅ Consistent navigation structure
 - ✅ No keyboard traps
@@ -219,7 +226,6 @@ This application follows **WCAG 2.1 Level AA** guidelines to ensure an inclusive
 - ✅ Form error prevention and recovery
 - ✅ Timeout warnings (if applicable)
 - ✅ Responsive and mobile-friendly
-
 
 ---
 

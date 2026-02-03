@@ -3,9 +3,12 @@
     <label class="sr-only" for="level">
       {{ $t('jobs.filter.levelLabel') }}
     </label>
-    <select id="level" :value="modelValue" @change="handleChange" class="w-full rounded-xl border border-border px-4 py-2 text-sm
-             focus:outline-none focus:ring-2 focus:ring-primary-500/40
-             bg-background cursor-pointer">
+    <select
+      id="level"
+      :value="modelValue"
+      @change="handleChange"
+      class="w-full rounded-xl border border-border px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/40 bg-background cursor-pointer"
+    >
       <option value="">
         {{ $t('jobs.filter.allLevels') }}
       </option>
@@ -16,27 +19,21 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'JobLevelSelect',
-
-  props: {
-    modelValue: {
-      type: String,
-      default: ''
-    },
-    levels: {
-      type: Array,
-      required: true
-    }
+<script setup>
+defineProps({
+  modelValue: {
+    type: String,
+    default: '',
   },
+  levels: {
+    type: Array,
+    required: true,
+  },
+});
 
-  emits: ['update:modelValue'],
+const emit = defineEmits(['update:modelValue']);
 
-  methods: {
-    handleChange(event) {
-      this.$emit('update:modelValue', event.target.value);
-    }
-  }
-}
+const handleChange = event => {
+  emit('update:modelValue', event.target.value);
+};
 </script>

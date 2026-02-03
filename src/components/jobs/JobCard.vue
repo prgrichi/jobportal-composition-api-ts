@@ -1,18 +1,17 @@
 <template>
   <!-- Job Card -->
-  <article class="w-full relative overflow-hidden rounded-lg border border-border bg-background p-6 
-           transition-all duration-300 hover:shadow-sm flex flex-col">
-
+  <article
+    class="w-full relative overflow-hidden rounded-lg border border-border bg-background p-6 transition-all duration-300 hover:shadow-sm flex flex-col"
+  >
     <div class="flex flex-col flex-1">
-
       <!-- Header:  Level Badge + Date + Title + Company -->
       <div class="flex items-start justify-between gap-4">
         <div class="flex-1">
-
           <!-- Level Badge + Posted Date -->
           <div class="flex items-center gap-2 mb-2">
             <span
-              class="inline-flex items-center rounded-md bg-primary-50 pr-2 py-1 text-xs font-medium text-primary-700">
+              class="inline-flex items-center rounded-md bg-primary-50 pr-2 py-1 text-xs font-medium text-primary-700"
+            >
               {{ job.level }}
             </span>
             <span class="text-xs text-neutral-400">
@@ -33,7 +32,6 @@
             <span class="h-1 w-1 rounded-full bg-neutral-300"></span>
             <span class="text-muted-foreground">{{ job.location }}</span>
           </div>
-
         </div>
       </div>
 
@@ -44,127 +42,131 @@
 
       <!-- Tags (max 6) -->
       <div v-if="job.tags?.length" class="flex flex-wrap gap-2">
-        <span v-for="tag in job.tags.slice(0, 6)" :key="tag"
-          class="rounded-md bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors">
+        <span
+          v-for="tag in job.tags.slice(0, 6)"
+          :key="tag"
+          class="rounded-md bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors"
+        >
           {{ tag }}
         </span>
       </div>
 
       <!-- Favorite Button -->
       <div class="inline-flex group/star items-center gap-2 mt-4">
-        <button type="button" :aria-pressed="isFavorited" :aria-label="favoriteButtonLabel" @click="handleFavoriteClick"
-          class="inline-flex items-center gap-1.5 cursor-pointer">
+        <button
+          type="button"
+          :aria-pressed="isFavorited"
+          :aria-label="favoriteButtonLabel"
+          @click="handleFavoriteClick"
+          class="inline-flex items-center gap-1.5 cursor-pointer"
+        >
           <Icon name="Star" :type="starType" :icon-class="starIconClass" />
-          <span class="text-sm text-primary-500 transition-all duration-150 
-                   group-hover/star:underline group-hover/star:underline-offset-4">
+          <span
+            class="text-sm text-primary-500 transition-all duration-150 group-hover/star:underline group-hover/star:underline-offset-4"
+          >
             {{ $t('jobs.favorites.save') }}
           </span>
         </button>
       </div>
-
     </div>
-
   </article>
 </template>
 
-<script>
+<script setup>
+import { computed, ref, toRefs } from 'vue';
+import { useI18n } from 'vue-i18n';
+
 import { useFavoritesStore } from '@/stores/jobs/favorites';
 import { useAuthStore } from '@/stores/auth/auth';
 import { useModalStore } from '@/stores/ui/modal';
 
-export default {
-  name: 'JobCard',
-
-  props: {
-    job: {
-      type: Object,
-      required: true
-    }
+// Props
+const props = defineProps({
+  job: {
+    type: Object,
+    required: true,
   },
+});
 
-  data() {
-    return {
-      isAnimating: false
-    };
-  },
+// Props reaktiv destructuren
+const { job } = toRefs(props);
 
-  computed: {
-    favoritesStore() {
-      return useFavoritesStore();
-    },
+const isAnimating = ref(false);
 
-    authStore() {
-      return useAuthStore();
-    },
+// Stores
+const favoritesStore = useFavoritesStore();
+const authStore = useAuthStore();
+const modalStore = useModalStore();
 
-    modalStore() {
-      return useModalStore();
-    },
+// i18n
+const { t } = useI18n();
 
-    // Format timestamp to German locale
-    timeToDate() {
-      const date = this.job?.createdAt?.toDate() || null;
-      if (!date) return '';
+// Format timestamp to German locale
+const timeToDate = computed(() => {
+  const date = job.value?.createdAt?.toDate() || null;
+  if (!date) return '';
 
-      return date.toLocaleString('de-DE', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit'
+  return date.toLocaleString('de-DE', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+  });
+});
+
+// Check if job is favorited
+const isFavorited = computed(() => {
+  return favoritesStore.isJobFavorited(job.value.id);
+});
+
+// Star icon type (solid if favorited, outline if not)
+const starType = computed(() => {
+  return isFavorited.value ? 'solid' : 'outline';
+});
+
+// Star icon classes with animation
+const starIconClass = computed(() => {
+  return [
+    'transition duration-200 h-4 w-4 text-primary-500',
+    isAnimating.value ? 'scale-125' : 'scale-100',
+  ].join(' ');
+});
+
+const favoriteButtonLabel = computed(() => {
+  return isFavorited.value
+    ? t('jobs.favorites.removeFromFavoritesLabel', {
+        title: job.value.title,
+        company: job.value.company,
+      })
+    : t('jobs.favorites.addToFavoritesLabel', {
+        title: job.value.title,
+        company: job.value.company,
       });
-    },
+});
 
-    // Star icon type (solid if favorited, outline if not)
-    starType() {
-      return this.isFavorited ? 'solid' : 'outline';
-    },
-
-    // Star icon classes with animation
-    starIconClass() {
-      return [
-        'transition duration-200 h-4 w-4 text-primary-500',
-        this.isAnimating ? 'scale-125' : 'scale-100'
-      ].join(' ');
-    },
-
-    // Check if job is favorited
-    isFavorited() {
-      return this.favoritesStore.isJobFavorited(this.job.id);
-    },
-    favoriteButtonLabel() {
-      return this.isFavorited
-        ? this.$t('jobs.favorites.removeFromFavoritesLabel', { title: this.job.title, company: this.job.company })
-        : this.$t('jobs.favorites.addToFavoritesLabel', { title: this.job.title, company: this.job.company });
-    }
-  },
-
-  methods: {
-    // Handle favorite button click
-    handleFavoriteClick() {
-      // Require authentication
-      if (!this.authStore.isAuthenticated) {
-        this.openAuthRequiredModal();
-        return;
-      }
-
-      this.toggleFavorite();
-    },
-
-    // Toggle favorite status with animation
-    toggleFavorite() {
-      this.favoritesStore.toggleFavorite(this.job);
-
-      // Trigger scale animation
-      this.isAnimating = true;
-      setTimeout(() => {
-        this.isAnimating = false;
-      }, 500);
-    },
-
-    // Show auth required modal
-    openAuthRequiredModal() {
-      this.modalStore.showAuthRequired();
-    }
+// Handle favorite button click
+const handleFavoriteClick = () => {
+  if (!authStore.isAuthenticated) {
+    openAuthRequiredModal();
+    return;
   }
-}
+
+  toggleFavorite();
+};
+
+// Toggle favorite status with animation
+const toggleFavorite = () => {
+  favoritesStore.toggleFavorite(job.value);
+
+  // Trigger scale animation
+  isAnimating.value = true;
+  setTimeout(() => {
+    isAnimating.value = false;
+  }, 500);
+};
+
+// Show auth required modal
+const openAuthRequiredModal = () => {
+  modalStore.showAuthRequired();
+};
 </script>

@@ -6,15 +6,8 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import Profile from '@/components/profile/Profile.vue';
-
-export default {
-  name: 'ProfilePage',
-  components: {
-    Profile
-  }
-}
 </script>
 
 <style scoped></style>

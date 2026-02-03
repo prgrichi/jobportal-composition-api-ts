@@ -1,5 +1,13 @@
 import { defineStore } from 'pinia';
-import { collection, doc, getDoc, getDocs, setDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  deleteDoc,
+  serverTimestamp,
+} from 'firebase/firestore';
 import { db } from '@/config/firebase';
 import { useAuthStore } from '@/stores/auth/auth';
 import { useToastStore } from '@/stores/toast/toast';
@@ -11,10 +19,10 @@ export const useFavoritesStore = defineStore('favorites', {
   }),
 
   getters: {
-    isJobFavorited: (state) => (jobId) => {
+    isJobFavorited: state => jobId => {
       return state.favoriteJobs.some(job => job.id === jobId);
     },
-    favoriteCount: (state) => state.favoriteJobs.length,
+    favoriteCount: state => state.favoriteJobs.length,
     authStore: () => useAuthStore(),
     toast: () => useToastStore(),
   },
@@ -42,7 +50,7 @@ export const useFavoritesStore = defineStore('favorites', {
 
         this.favoriteJobs = snapshot.docs.map(doc => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         }));
 
         console.log(`✅ ${this.favoriteJobs.length} Favorites geladen`);
@@ -72,12 +80,10 @@ export const useFavoritesStore = defineStore('favorites', {
         } else {
           await this.addFavorite(favoriteRef, job);
         }
-
       } catch (error) {
         this.toast.error('Fehler beim Speichern');
         console.error('❌ Fehler beim Toggle:', error);
-      }
-      finally {
+      } finally {
         this.loading = false;
       }
     },
@@ -89,7 +95,7 @@ export const useFavoritesStore = defineStore('favorites', {
         company: job.company,
         location: job.location,
         description: job.description,
-        savedAt: serverTimestamp()
+        savedAt: serverTimestamp(),
       };
 
       await setDoc(favoriteRef, favoriteData);
@@ -109,7 +115,6 @@ export const useFavoritesStore = defineStore('favorites', {
 
     clearFavorites() {
       this.favoriteJobs = [];
-    }
-
-  }
-})
+    },
+  },
+});

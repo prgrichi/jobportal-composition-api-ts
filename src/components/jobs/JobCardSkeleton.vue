@@ -1,6 +1,10 @@
 <!-- components/jobs/JobCardSkeleton.vue -->
 <template>
-  <article class="rounded-xl bg-gray-50 p-5 ring-1 ring-ring animate-pulse" aria-busy="true" aria-label="Job lädt">
+  <article
+    class="rounded-xl bg-gray-50 p-5 ring-1 ring-ring animate-pulse"
+    aria-busy="true"
+    aria-label="Job lädt"
+  >
     <!-- Title -->
     <div class="h-4 w-3/4 rounded bg-gray-200"></div>
 
@@ -22,9 +26,3 @@
     </div>
   </article>
 </template>
-
-<script>
-export default {
-  name: "JobCardSkeleton",
-};
-</script>

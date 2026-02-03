@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="max-w-app mx-auto">
-
       <!-- Header -->
       <ProfileHeader :title="$t('profile.title')" :subtitle="$t('profile.subtitle')" />
 
@@ -12,23 +11,33 @@
 
       <!-- Profile Content -->
       <div v-else>
-
         <!-- View Mode -->
-        <ProfileView v-if="!isEditing" :profile="profile" :display-name="displayName"
-          :edit-button-text="$t('general.btn.edit')" @edit="startEdit" />
+        <ProfileView
+          v-if="!isEditing"
+          :profile="profile"
+          :display-name="displayName"
+          :edit-button-text="$t('general.btn.edit')"
+          @edit="startEdit"
+        />
 
         <!-- Edit Mode -->
-        <ProfileEdit v-else :profile="profile" :is-saving="isSaving" :title="$t('profile.editProfile')"
-          :save-button-text="isSavingLabel" :cancel-button-text="$t('general.btn.cancel')" @save="save"
-          @cancel="cancel" />
-
+        <ProfileEdit
+          v-else
+          :profile="profile"
+          :is-saving="isSaving"
+          :title="$t('profile.editProfile')"
+          :save-button-text="isSavingLabel"
+          :cancel-button-text="$t('general.btn.cancel')"
+          @save="save"
+          @cancel="cancel"
+        />
       </div>
-
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted } from 'vue';
 import { useProfileStore } from '@/stores/user/profile';
 import { useAuthStore } from '@/stores/auth/auth';
 import { useToastStore } from '@/stores/toast/toast';
@@ -37,89 +46,54 @@ import ProfileHeader from './ProfileHeader.vue';
 import ProfileView from './ProfileView.vue';
 import ProfileEdit from './ProfileEdit.vue';
 
-export default {
-  name: 'Profile',
+const isEditing = ref(false);
+const isSaving = ref(false);
 
-  components: {
-    ProfileHeader,
-    ProfileView,
-    ProfileEdit
-  },
+const { t } = useI18n();
 
-  setup() {
-    const { t, locale } = useI18n();
-    return { t, locale };
-  },
+const profileStore = useProfileStore();
+const authStore = useAuthStore();
+const toast = useToastStore();
 
-  data() {
-    return {
-      isEditing: false,
-      isSaving: false
-    };
-  },
+const loading = computed(() => profileStore.loading);
+const profile = computed(() => profileStore.profile || {});
+const isSavingLabel = computed(() => {
+  return isSaving.value ? t('general.btn.ui.saving') : t('general.btn.ui.save');
+});
+const displayName = computed(() => {
+  const first = profile.value.firstName || '';
+  const last = profile.value.lastName || '';
+  const name = `${first} ${last}`.trim();
+  return name || 'Unbekannt';
+});
 
-  computed: {
-    profileStore() {
-      return useProfileStore();
-    },
-    authStore() {
-      return useAuthStore();
-    },
-    toast() {
-      return useToastStore();
-    },
-    loading() {
-      return this.profileStore.loading;
-    },
-    profile() {
-      return this.profileStore.profile || {};
-    },
-    isSavingLabel() {
-      return this.isSaving
-        ? this.$t('general.btn.ui.saving')
-        : this.$t('general.btn.ui.save');
-    },
-    displayName() {
-      const first = this.profile.firstName || '';
-      const last = this.profile.lastName || '';
-      const name = `${first} ${last}`.trim();
-      return name || 'Unbekannt';
-    }
-  },
+const startEdit = () => {
+  isEditing.value = true;
+};
 
-  methods: {
-    startEdit() {
-      this.isEditing = true;
-    },
+const cancel = () => {
+  isEditing.value = false;
+  isSaving.value = false;
+};
 
-    cancel() {
-      this.isEditing = false;
-      this.isSaving = false;
-    },
+const save = async editData => {
+  isSaving.value = true;
 
-    async save(editData) {
-      this.isSaving = true;
+  const result = await profileStore.updateProfile(authStore.user.uid, editData);
 
-      const result = await this.profileStore.updateProfile(
-        this.authStore.user.uid,
-        editData
-      );
+  isSaving.value = false;
 
-      this.isSaving = false;
-
-      if (result.success) {
-        this.isEditing = false;
-        this.toast.success(this.t('toast.profileSuccess'));
-      } else {
-        this.toast.error(this.t('toast.profileError'));
-      }
-    }
-  },
-
-  mounted() {
-    if (this.authStore.user) {
-      this.profileStore.loadProfile(this.authStore.user.uid);
-    }
+  if (result.success) {
+    isEditing.value = false;
+    toast.success(t('toast.profileSuccess'));
+  } else {
+    toast.error(t('toast.profileError'));
   }
 };
+
+onMounted(() => {
+  if (authStore.user) {
+    profileStore.loadProfile(authStore.user.uid);
+  }
+});
 </script>

@@ -1,7 +1,6 @@
 <template>
   <!-- Job Detail Panel (Text or List) -->
   <section class="rounded-3xl bg-background p-6 ring-1 ring-ring">
-
     <!-- Panel Title -->
     <h2 class="text-sm font-semibold text-foreground">
       {{ title }}
@@ -21,27 +20,22 @@
         <span class="leading-6">{{ item }}</span>
       </li>
     </ul>
-
   </section>
 </template>
 
-<script>
-export default {
-  name: 'JobDetailPanel',
-
-  props: {
-    title: {
-      type: String,
-      required: true
-    },
-    content: {
-      type: String,
-      default: null
-    },
-    items: {
-      type: Array,
-      default: null
-    }
-  }
-}
+<script setup>
+defineProps({
+  title: {
+    type: String,
+    required: true,
+  },
+  content: {
+    type: String,
+    default: null,
+  },
+  items: {
+    type: Array,
+    default: null,
+  },
+});
 </script>

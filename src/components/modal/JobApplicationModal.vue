@@ -143,54 +143,40 @@
   </BaseModal>
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue';
+
 import BaseModal from './BaseModal.vue';
 import { Form, Field, ErrorMessage } from 'vee-validate';
 import { createJobApplicationSchema } from '@/schemas';
 import { useAuthStore } from '@/stores/auth/auth';
 
-export default {
-  name: 'JobApplicationModal',
-  components: {
-    BaseModal,
-    Form,
-    Field,
-    ErrorMessage,
+defineProps({
+  isOpen: {
+    type: Boolean,
+    required: true,
   },
-  props: {
-    isOpen: {
-      type: Boolean,
-      required: true,
-    },
-    jobTitle: {
-      type: String,
-      required: false,
-    },
+  jobTitle: {
+    type: String,
+    required: false,
   },
+});
 
-  emits: ['close'],
+const authStore = useAuthStore();
+const schema = createJobApplicationSchema();
 
-  computed: {
-    schema() {
-      return createJobApplicationSchema();
-    },
-    authStore() {
-      return useAuthStore();
-    },
-    initialValues() {
-      return {
-        email: this.authStore.user?.email || '',
-      };
-    },
-  },
-  methods: {
-    // Close modal
-    onClose() {
-      this.$emit('close');
-    },
-    onSubmit(values) {
-      console.log('Form submitted with values:', values);
-    },
-  },
+const initialValues = computed(() => {
+  return {
+    email: authStore.user?.email || '',
+  };
+});
+
+const emit = defineEmits(['close']);
+
+const onClose = () => {
+  emit('close');
+};
+const onSubmit = values => {
+  console.log('Form submitted with values:', values);
 };
 </script>

@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen bg-muted py-6 md:py-12">
-
     <!-- Loading State -->
     <div v-if="jobStore.isLoading" class="w-full block text-center mt-6">
       {{ $t('general.loading') }}
@@ -13,17 +12,20 @@
 
     <!-- Job Content -->
     <div v-else-if="job">
-
       <!-- Header/Breadcrumb -->
       <JobDetailHeader :job-number="job.jobNumber || job.id" :back-route="backRoute" />
 
       <!-- Main Content -->
       <section class="mx-auto max-w-app px-4 py-8">
-
         <!-- Hero + Sidebar -->
         <div class="grid gap-6 lg:grid-cols-12">
           <JobDetailHero :job="job" />
-          <JobDetailSidebar :job="job" :remote-label="remoteLabel" :created-at="createdAtDE" @apply="handleApply" />
+          <JobDetailSidebar
+            :job="job"
+            :remote-label="remoteLabel"
+            :created-at="createdAtDE"
+            @apply="handleApply"
+          />
         </div>
 
         <!-- 3 Panels -->
@@ -32,20 +34,25 @@
         <!-- Bottom CTA -->
         <JobDetailCTA @save="handleSave" @apply="handleApply" :job="job" />
 
-        <JobApplicationModal :is-open="modalStore.jobApplicationModalOpen" :jobTitle="job.title"
-          @close="modalStore.hideJobApplication" />
-
+        <JobApplicationModal
+          :is-open="modalStore.jobApplicationModalOpen"
+          :jobTitle="job.title"
+          @close="modalStore.hideJobApplication"
+        />
       </section>
     </div>
-
   </div>
 </template>
 
-<script>
+<script setup>
+import { computed, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+
 import { useJobStore } from '@/stores/jobs/jobs';
 import { useAuthStore } from '@/stores/auth/auth';
 import { useFavoritesStore } from '@/stores/jobs/favorites';
 import { useModalStore } from '@/stores/ui/modal';
+
 import JobDetailHeader from '@/components/jobs/detail/JobDetailHeader.vue';
 import JobDetailHero from '@/components/jobs/detail/JobDetailHero.vue';
 import JobDetailSidebar from '@/components/jobs/detail/JobDetailSidebar.vue';
@@ -53,86 +60,78 @@ import JobDetailPanels from '@/components/jobs/detail/JobDetailPanels.vue';
 import JobDetailCTA from '@/components/jobs/detail/JobDetailCTA.vue';
 import JobApplicationModal from '@/components/modal/JobApplicationModal.vue';
 
-export default {
-  name: 'JobsDetailPage',
-
-  components: {
-    JobDetailHeader,
-    JobDetailHero,
-    JobDetailSidebar,
-    JobDetailPanels,
-    JobDetailCTA,
-    JobApplicationModal
+// Props
+const props = defineProps({
+  id: {
+    type: String,
+    required: true,
   },
+});
 
-  props: {
-    id: {
-      type: String,
-      required: true
-    }
-  },
-  computed: {
-    jobStore() {
-      return useJobStore();
-    },
-    authStore() {
-      return useAuthStore();
-    },
-    favoritesStore() {
-      return useFavoritesStore();
-    },
-    modalStore() {
-      return useModalStore();
-    },
-    job() {
-      return this.jobStore.singleJob;
-    },
-    createdAtDE() {
-      if (!this.job || !this.job.createdAt) return '-';
-      const date = this.job.createdAt.toDate ? this.job.createdAt.toDate() : new Date(this.job.createdAt);
-      return date.toLocaleDateString('de-DE', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      });
-    },
-    remoteLabel() {
-      return this.job?.remote ? 'Remote möglich' : 'Vor Ort';
-    },
-    backRoute() {
-      const previousRoute = this.$route.meta.previousRoute;
+// Stores
+const jobStore = useJobStore();
+const authStore = useAuthStore();
+const favoritesStore = useFavoritesStore();
+const modalStore = useModalStore();
 
-      if (previousRoute === '/') {
-        return { name: 'home' };
-      }
-      if (previousRoute === '/jobs') {
-        return { name: 'jobs' };
-      }
-      return { name: 'home' };
-    }
-  },
+// Reaktive Ableitungen
+const job = computed(() => jobStore.singleJob);
 
-  async created() {
-    await this.jobStore.fetchJobByIdWithCache(this.id);
-  },
+const createdAtDE = computed(() => {
+  if (!job.value || !job.value.createdAt) return '-';
 
-  methods: {
-    handleApply() {
-      console.log('Apply clicked for job:', this.job.id);
+  const raw = job.value.createdAt;
+  const date = raw.toDate ? raw.toDate() : new Date(raw);
 
-      if (!this.authStore.isAuthenticated) {
-        this.modalStore.showAuthRequired();
-        return;
-      }
+  return date.toLocaleDateString('de-DE', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+});
 
-      this.modalStore.showJobApplication(this.job.id);
-    },
+const remoteLabel = computed(() => (job.value?.remote ? 'Remote möglich' : 'Vor Ort'));
 
-    handleSave() {
-      console.log('Save clicked for job:', this.job.id);
+// Back-Route aus Route-Meta
+const route = useRoute();
 
-      this.favoritesStore.toggleFavorite(this.job);
-    }
+const backRoute = computed(() => {
+  const previousRoute = route.meta.previousRoute;
+
+  if (previousRoute === '/') {
+    return { name: 'home' };
   }
-}
+  if (previousRoute === '/jobs') {
+    return { name: 'jobs' };
+  }
+  return { name: 'home' };
+});
+
+// Methoden
+const handleApply = () => {
+  if (!job.value) return;
+
+  console.log('Apply clicked for job:', job.value.id);
+
+  if (!authStore.isAuthenticated) {
+    modalStore.showAuthRequired();
+    return;
+  }
+
+  modalStore.showJobApplication(job.value.id);
+};
+
+const handleSave = () => {
+  if (!job.value) return;
+
+  console.log('Save clicked for job:', job.value.id);
+  favoritesStore.toggleFavorite(job.value);
+};
+
+// Lifecycle
+onMounted(async () => {
+  await jobStore.fetchJobByIdWithCache(props.id);
+});
 </script>
+
+<style scoped></style>

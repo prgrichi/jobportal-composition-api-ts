@@ -2,9 +2,7 @@
   <!-- Why Section (Features) -->
   <section class="mb-10 lg:mb-16 pt-10">
     <div class="max-w-app mx-auto px-4">
-
       <div class="grid gap-12 md:grid-cols-2 lg:items-start">
-
         <!-- Left:  Section Header -->
         <div>
           <p class="text-sm uppercase tracking-wider text-primary-600">
@@ -20,7 +18,6 @@
 
         <!-- Right: Features List -->
         <div class="rounded-xl border border-border bg-background divide-y divide-border">
-
           <!-- Feature 1: Relevant Jobs -->
           <div class="p-6 md: p-7">
             <h3 class="font-medium text-foreground">
@@ -50,17 +47,14 @@
               {{ $t('why.features.noDistraction.description') }}
             </p>
           </div>
-
         </div>
-
       </div>
-
     </div>
   </section>
 </template>
 
-<script>
-export default {
+<script setup>
+defineOptions({
   name: 'WhySection',
-}
+});
 </script>

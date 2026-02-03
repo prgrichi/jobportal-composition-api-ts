@@ -76,11 +76,10 @@ const router = createRouter({
       path: '/:pathMatch(.*)*',
       component: () => import('@/pages/NotFoundPage.vue'),
       meta: {
-        title: '404'
-      }
-    }
-
-  ]
+        title: '404',
+      },
+    },
+  ],
 });
 
 router.beforeEach(async (to, from, next) => {
@@ -102,7 +101,7 @@ router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     next({
       name: 'login',
-      query: { redirect: to.fullPath }
+      query: { redirect: to.fullPath },
     });
   } else {
     next();

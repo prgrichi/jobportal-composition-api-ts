@@ -1,11 +1,13 @@
 <template>
   <!-- Locked Job Placeholder Card -->
-  <article class="rounded-xl border border-border bg-background p-6 shadow-sm transition hover:shadow-md">
-
+  <article
+    class="rounded-xl border border-border bg-background p-6 shadow-sm transition hover:shadow-md"
+  >
     <!-- Lock Badge -->
     <div class="mb-3 flex justify-end">
       <span
-        class="inline-flex items-center gap-1 rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground">
+        class="inline-flex items-center gap-1 rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground"
+      >
         🔒 {{ $t('threejobsteaser.placeholder.locked') }}
       </span>
     </div>
@@ -39,12 +41,11 @@
         {{ $t('general.btn.registerNow') }}
       </RouterLink>
     </div>
-
   </article>
 </template>
 
-<script>
-export default {
-  name: 'ThreeJobsTeaserPlaceholder'
-}
+<script setup>
+defineOptions({
+  name: 'WhySection',
+});
 </script>

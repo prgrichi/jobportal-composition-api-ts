@@ -7,19 +7,15 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'JobDetailSpec',
-
-  props: {
-    label: {
-      type: String,
-      required: true
-    },
-    value: {
-      type: [String, Number],
-      required: true
-    }
-  }
-}
+<script setup>
+defineProps({
+  label: {
+    type: String,
+    required: true,
+  },
+  value: {
+    type: [String, Number],
+    required: true,
+  },
+});
 </script>

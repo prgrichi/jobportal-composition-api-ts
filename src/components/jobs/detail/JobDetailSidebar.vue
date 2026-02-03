@@ -1,7 +1,6 @@
 <template>
   <div class="lg:col-span-5">
     <div class="rounded-3xl bg-background p-5 ring-1 ring-ring">
-
       <!-- Salary + Level -->
       <div class="flex items-start justify-between gap-4">
         <div>
@@ -32,36 +31,27 @@
           {{ $t('general.btn.apply') }}
         </button>
       </div>
-
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import JobDetailSpec from './JobDetailSpec.vue';
 
-export default {
-  name: 'JobDetailSidebar',
-
-  components: {
-    JobDetailSpec
+defineProps({
+  job: {
+    type: Object,
+    required: true,
   },
-
-  props: {
-    job: {
-      type: Object,
-      required: true
-    },
-    remoteLabel: {
-      type: String,
-      required: true
-    },
-    createdAt: {
-      type: String,
-      required: true
-    }
+  remoteLabel: {
+    type: String,
+    required: true,
   },
+  createdAt: {
+    type: String,
+    required: true,
+  },
+});
 
-  emits: ['apply']
-}
+defineEmits(['apply']);
 </script>

@@ -45,3 +45,6 @@ __screenshots__/
 
 # Firebase
 .firebase/
+
+prompts.md
+prompts-short.md

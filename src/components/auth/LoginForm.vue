@@ -2,15 +2,8 @@
   <AuthForm mode="login" />
 </template>
 
-<script>
+<script setup>
 import AuthForm from './AuthForm.vue';
-
-export default {
-  name: 'LoginForm',
-  components: {
-    AuthForm
-  }
-}
 </script>
 
 <style scoped></style>

@@ -2,13 +2,6 @@
   <AuthForm mode="register" />
 </template>
 
-<script>
+<script setup>
 import AuthForm from './AuthForm.vue';
-
-export default {
-  name: 'RegisterForm',
-  components: {
-    AuthForm
-  }
-}
 </script>

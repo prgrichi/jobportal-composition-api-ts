@@ -8,18 +8,10 @@
       <LoginForm />
     </div>
   </section>
-
 </template>
 
-<script>
+<script setup>
 import LoginForm from '@/components/auth/LoginForm.vue';
-
-export default {
-  name: 'LoginPage',
-  components: {
-    LoginForm,
-  }
-}
 </script>
 
 <style scoped></style>
