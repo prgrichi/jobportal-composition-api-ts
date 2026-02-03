@@ -12,7 +12,8 @@
     "preview": "vite preview",
     "lint": "eslint .  --fix",
     "format": "prettier --write \"src/**/*.{js,vue,css,json}\"",
-    "prepare": "husky"
+    "prepare": "husky",
+    "type-check": "vue-tsc --noEmit"
   },
   "lint-staged": {
     "*.{js,jsx,vue}": [
@@ -38,6 +39,7 @@
     "yup": "^1.7.1"
   },
   "devDependencies": {
+    "@types/node": "^25.2.0",
     "@vitejs/plugin-vue": "^6.0.2",
     "@vue/eslint-config-prettier": "^10.2.0",
     "eslint": "^9.39.2",
@@ -46,7 +48,9 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
+    "typescript": "^5.9.3",
     "vite": "^7.2.4",
-    "vite-plugin-vue-devtools": "^8.0.5"
+    "vite-plugin-vue-devtools": "^8.0.5",
+    "vue-tsc": "^3.2.4"
   }
 }
