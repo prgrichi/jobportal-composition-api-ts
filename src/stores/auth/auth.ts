@@ -1,11 +1,14 @@
 import { defineStore } from 'pinia';
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from 'firebase/auth';
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
-import { auth, db } from "@/config/firebase";
+import { auth, db } from '@/config/firebase';
+
+import type { User } from '@/types/user';
+import type { User as FirebaseUser } from 'firebase/auth';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    user: null,
+    user: null as FirebaseUser | null,
     authReady: false,
   }),
 
@@ -13,17 +16,16 @@ export const useAuthStore = defineStore('auth', {
     isAuthenticated: state => !!state.user,
     userName: state => {
       if (!state.user) return 'Gast';
-      return state.user.email?.split('@')[0] ||
-        'Gast';
-    }
+      return state.user.email?.split('@')[0] || 'Gast';
+    },
   },
 
   actions: {
     init() {
       if (this.authReady) return Promise.resolve();
 
-      return new Promise((resolve) => {
-        onAuthStateChanged(auth, async (user) => {
+      return new Promise<FirebaseUser | null>(resolve => {
+        onAuthStateChanged(auth, async user => {
           this.user = user;
           if (user) {
             console.log('🔐 User eingeloggt:', user.uid);
@@ -35,27 +37,27 @@ export const useAuthStore = defineStore('auth', {
       });
     },
 
-    async createUserDocument(user) {
+    async createUserDocument(user: FirebaseUser) {
       const userRef = doc(db, 'users', user.uid);
       const userSnap = await getDoc(userRef);
 
       if (!userSnap.exists()) {
-        console.log(user);
-        await setDoc(userRef, {
+        const newUser: User = {
           uid: user.uid,
-          email: user.email,
+          email: user.email || '',
           firstName: '',
           lastName: '',
           jobTitle: '',
           location: '',
-          createdAt: serverTimestamp(),
-          updatedAt: serverTimestamp()
-        });
+          createdAt: serverTimestamp() as any,
+          updatedAt: serverTimestamp() as any,
+        };
+
+        await setDoc(userRef, newUser);
         console.log('✅ User-Dokument erstellt für:', user.uid);
       } else {
         console.log('ℹ️ User-Dokument existiert bereits');
       }
     },
-
   },
 });
