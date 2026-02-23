@@ -1,7 +1,7 @@
 // src/types/job.ts
 import type { Timestamp } from 'firebase/firestore';
 
-export type Job = {
+export interface Job {
   company: string;
   createdAt: Timestamp;
   description: string;
@@ -16,4 +16,4 @@ export type Job = {
   shortDescription: string;
   tags: string[];
   title: string;
-};
+}
