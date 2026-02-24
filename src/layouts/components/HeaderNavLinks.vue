@@ -71,20 +71,20 @@
   </button>
 </template>
 
-<script setup>
-const { isAuthenticated, favoriteCount } = defineProps({
-  isAuthenticated: {
-    type: Boolean,
-    required: true,
-  },
-  favoriteCount: {
-    type: Number,
-    required: false,
-    default: 0,
-  },
+<script setup lang="ts">
+interface HeaderNavLinksProps {
+  isAuthenticated: boolean;
+  favoriteCount?: number;
+}
+
+withDefaults(defineProps<HeaderNavLinksProps>(), {
+  favoriteCount: 0,
 });
 
-const emit = defineEmits(['logout', 'authRequired']);
+const emit = defineEmits<{
+  (_e: 'logout'): void;
+  (_e: 'authRequired'): void;
+}>();
 
 const handleLogout = () => {
   emit('logout');

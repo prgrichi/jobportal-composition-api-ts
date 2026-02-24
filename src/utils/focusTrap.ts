@@ -5,10 +5,16 @@
  * @param {Function} options.onClose - Callback beim Schließen (Escape)
  * @returns {Object} Focus Trap Instanz mit activate/deactivate/destroy
  */
-export function createFocusTrap(options = {}) {
+
+type FocusTrapOptions = {
+  getFocusableElements?: () => HTMLElement[];
+  onClose?: () => void;
+};
+
+export function createFocusTrap(options: FocusTrapOptions = {}) {
   let isActive = false;
 
-  function handleKeydown(e) {
+  function handleKeydown(e: KeyboardEvent) {
     if (!isActive) return;
 
     const { getFocusableElements, onClose } = options;

@@ -45,7 +45,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { signOut } from 'firebase/auth';
@@ -59,10 +59,11 @@ import { createFocusTrap } from '@/utils/focusTrap';
 
 import HeaderNavLinks from './HeaderNavLinks.vue';
 
+type FocusTrapInstance = ReturnType<typeof createFocusTrap>;
+const focusTrap = ref<FocusTrapInstance | null>(null); // Focus trap instance
+const burgerBtn = ref<HTMLButtonElement | null>(null); // Reference to the burger button
+const mobileMenu = ref<HTMLElement | null>(null); // Reference to the mobile menu
 const mobileMenuOpen = ref(false); // Mobile menu toggle state
-const focusTrap = ref(null); // Focus trap instance
-const burgerBtn = ref(null); // Reference to the burger button
-const mobileMenu = ref(null); // Reference to the mobile menu
 
 const toastStore = useToastStore();
 const authStore = useAuthStore();
@@ -115,8 +116,18 @@ const handleLogout = async () => {
 onMounted(() => {
   focusTrap.value = createFocusTrap({
     getFocusableElements: () => {
-      const menuLinks = Array.from(mobileMenu.value?.querySelectorAll('a, button') || []);
-      return [burgerBtn.value, ...menuLinks];
+      const elements: HTMLElement[] = [];
+
+      if (burgerBtn.value) {
+        elements.push(burgerBtn.value);
+      }
+
+      const menuLinks = mobileMenu.value?.querySelectorAll('a, button');
+      if (menuLinks) {
+        elements.push(...(Array.from(menuLinks) as HTMLElement[]));
+      }
+
+      return elements;
     },
     onClose: () => {
       if (!mobileMenuOpen.value) return;
