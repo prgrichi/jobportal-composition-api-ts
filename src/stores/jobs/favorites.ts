@@ -103,8 +103,6 @@ export const useFavoritesStore = defineStore('favorites', {
       await setDoc(favoriteRef, favoriteData);
       this.favoriteJobs.push({ id: job.id, ...favoriteData });
 
-      console.log(this.favoriteJobs);
-
       this.toast.success('Job gespeichert!');
       console.log('✅ Favorite hinzugefügt:', job.id);
     },

@@ -75,8 +75,8 @@ export const useJobStore = defineStore('jobs', {
       const data = doc.data() as Omit<Job, 'id'>;
 
       return {
-        id: doc.id,
         ...data,
+        id: doc.id,
       };
     },
 
@@ -110,7 +110,6 @@ export const useJobStore = defineStore('jobs', {
         const querySnapshot = await getDocs(q);
 
         this.jobs = querySnapshot.docs.map(doc => this.mapDocToJob(doc));
-        console.log(this.jobs);
 
         const docs = querySnapshot.docs;
         this.lastVisible = docs.length > 0 ? docs[docs.length - 1] : null;
