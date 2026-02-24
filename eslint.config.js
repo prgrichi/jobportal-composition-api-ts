@@ -1,6 +1,8 @@
 import js from '@eslint/js';
 import pluginVue from 'eslint-plugin-vue';
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
+import tsParser from '@typescript-eslint/parser';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
 
 export default [
   {
@@ -16,6 +18,27 @@ export default [
   // Base configs
   js.configs.recommended,
   ...pluginVue.configs['flat/essential'],
+
+  {
+    files: ['**/*.ts'],
+    languageOptions: {
+      parser: tsParser,
+    },
+    plugins: {
+      '@typescript-eslint': tsPlugin,
+    },
+  },
+  {
+    files: ['**/*.vue'],
+    languageOptions: {
+      parserOptions: {
+        parser: tsParser,
+      },
+    },
+    plugins: {
+      '@typescript-eslint': tsPlugin,
+    },
+  },
 
   // Custom rules
   {

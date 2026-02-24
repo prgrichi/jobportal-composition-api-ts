@@ -12,5 +12,8 @@
       "@/*": ["src/*"]
     }
   },
+  "vueCompilerOptions": {
+    "strictTemplates": true
+  },
   "include": ["src/**/*.ts", "src/**/*.vue"]
 }
